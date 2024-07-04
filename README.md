@@ -16,9 +16,9 @@ yarn start
 
 主分支 main
 
-测试分支 feature
+测试分支 release (研发完将个人分支代码合入到 release 分支)
 
-研发个人的分支从 feature 拉取分支，开发完后合入到 feature 分支
+研发个人的分支从 release 拉取分支，开发完后合入到 release 分支
 
 ### 代码开发规范
 
