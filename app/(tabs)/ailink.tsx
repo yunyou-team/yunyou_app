@@ -1,7 +1,6 @@
-import AddPlanButton from "@/components/AddPlanButton";
 import { Text, View } from "react-native";
 
-export default function Home() {
+export default function AiLink() {
   return (
     <View
       style={{
@@ -10,7 +9,7 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <AddPlanButton />
+      <Text>AiLink</Text>
     </View>
   );
 }
