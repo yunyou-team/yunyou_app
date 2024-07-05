@@ -16,23 +16,3 @@ export const globalColor = {
         location: [0.1389, 0.8805]
     },
 }
-
-
-// 使用示例
-
-// <LinearGradient
-//     colors={globalColor.THEME_TWO.color} // 定义颜色数组
-//     locations={globalColor.THEME_TWO.location} // 渐变位置
-//     style={styles.viewBg}
-// >
-// </LinearGradient>
-
-// const styles = StyleSheet.create({
-//     redColor: {
-//         color: globalColor.FONT_ONE,
-//     },
-//     greenColor: {
-//         color: globalColor.FONT_TWO,
-//     }
-// });
-  

@@ -30,7 +30,7 @@ yarn start
 
 ### 代码开发规范
 
-开发组件
+- 开发组件
 
 1. 通用组件
 
@@ -42,3 +42,39 @@ yarn start
 
 例如：src/home/components/xxx.tsx
 
+
+- 全局颜色系统
+
+如需要使用全局的颜色变量 使用规则如下：
+
+```
+import { globalColor } from '@/style/color' // 导入颜色系统
+
+export default function Home() {
+  return (
+    <View
+      style={styles.viewBg}
+    >
+      <LinearGradient
+        colors={globalColor.THEME_TWO.color} // 使用二级主题色 - 颜色
+        locations={globalColor.THEME_TWO.location} // 使用二级主题色 - 渐变位置
+        style={styles.viewBg}
+      >
+        <Text style={styles.redColor}>Home</Text>
+        <Text style={styles.greenColor}>Home</Text>
+      </LinearGradient>
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+    redColor: {
+        color: globalColor.FONT_ONE, // 使用一级字体色
+    },
+    greenColor: {
+        color: globalColor.FONT_TWO, // 使用二级字体色
+    }
+});
+
+```
