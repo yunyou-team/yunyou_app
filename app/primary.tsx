@@ -1,7 +1,7 @@
 import FirstCard from "@/components/firstLogin/firstCard";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
-export default function Home() {
+export default function Primary() {
   return (
     <View
       style={{
@@ -13,13 +13,13 @@ export default function Home() {
     >
       <View style={{ marginBottom: 15 }}>
         <FirstCard
-          imageSource={require('../../assets/images/createTravel.png')}
+          imageSource={require('../assets/images/createTravel.png')}
           buttonText="+ 创建行程"
         />
       </View>
       <View style={{ marginTop: 15 }}>
         <FirstCard
-          imageSource={require('../../assets/images/createAI.png')}
+          imageSource={require('../assets/images/createAI.png')}
           buttonText="+ AI解析"
         />
       </View>
