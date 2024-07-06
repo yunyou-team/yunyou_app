@@ -34,13 +34,13 @@ yarn start
 
 1. 通用组件
 
-直接在 src/components 目录下创建组件
+直接在 /components 目录下创建组件
 
 2. 业务组件
 
-在对应页面文件夹下的 components 目录下创建组件
+在 /app/components 目录下对应页面文件夹下 创建组件
 
-例如：src/home/components/xxx.tsx
+例如：/app/components/index/xxx.tsx
 
 
 - 全局颜色系统
@@ -78,3 +78,4 @@ const styles = StyleSheet.create({
 });
 
 ```
+

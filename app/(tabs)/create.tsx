@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-export default function Create() {
+export default function CreateScreen() {
   return (
     <View
       style={{
