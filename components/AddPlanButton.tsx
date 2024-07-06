@@ -1,10 +1,16 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 const AddPlanButton = (props: TouchableOpacityProps) => {
+  const onPress = () => {
+    // 跳转
+    router.push('/create');
+  }
+
   return (
-    <TouchableOpacity {...props}>
+    <TouchableOpacity onPress={onPress} {...props}>
       <LinearGradient
         style={styles.constainer}
         start={{ x: 0, y: 0 }}

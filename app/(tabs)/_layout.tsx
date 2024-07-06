@@ -1,7 +1,16 @@
 import AddPlanButton from '@/components/AddPlanButton';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
-import { Image } from 'react-native';
+import { ReactElement } from 'react';
+import { Image, StyleSheet, View } from 'react-native';
+
+function mackTabItem(comp: ReactElement, focused: boolean) {
+  return (
+    <View style={styles.tabItemContainer}>
+      {comp}
+      {focused && <View style={styles.tabItemDot} />}
+    </View>
+  )
+}
 
 export default function TabLayout() {
   return (
@@ -10,6 +19,8 @@ export default function TabLayout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
+          borderTopLeftRadius: 18,
+          borderTopRightRadius: 18,
           paddingHorizontal: 20,
           height: 100,
         }
@@ -18,7 +29,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="create"
         options={{
-          tabBarIcon: () => <AddPlanButton />,
+          tabBarIcon: (focused) => <AddPlanButton />,
           tabBarItemStyle: {
             flex: 1
           }
@@ -27,7 +38,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="ailink"
         options={{
-          tabBarIcon: () => <Image source={require('../../assets/images/ailink.png')} />,
+          tabBarIcon: ({focused}) => mackTabItem(<Image source={require('../../assets/images/ailink.png')} />, focused),
           tabBarItemStyle: {
             flex: 0.5
           }
@@ -36,7 +47,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: () => <Image source={require('../../assets/images/home.png')} />,
+          tabBarIcon: ({focused}) => mackTabItem(<Image source={require('../../assets/images/home.png')} />, focused),
           tabBarItemStyle: {
             flex: 0.5
           }
@@ -45,3 +56,17 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  tabItemContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  tabItemDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#275b51',
+    marginTop: 4
+  }
+})
