@@ -1,5 +1,4 @@
-import { Text, View } from "react-native";
-import { StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { globalColor } from '@/style/color'
 
@@ -15,6 +14,7 @@ export default function Home() {
       >
         <Text style={styles.redColor}>Home</Text>
         <Text style={styles.greenColor}>Home</Text>
+        <ActivityIndicator color={globalColor.FONT_ONE} animating={true}></ActivityIndicator>
       </LinearGradient>
     </View>
   );
