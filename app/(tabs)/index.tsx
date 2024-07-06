@@ -3,6 +3,7 @@ import { ImageBackground, Image, View, StyleSheet, Text } from "react-native";
 import Primary from "../components/index/primary";
 import GuideList from '../components/index/GuideList'
 import { LinearGradient } from "expo-linear-gradient";
+import TripCarousel from "@/components/TripCarousel";
 
 export default function HomeScreen() {
   return (
@@ -21,9 +22,10 @@ export default function HomeScreen() {
         >
           <Text style={styles.text}>渐变文本</Text>
         </LinearGradient> */}
-        <Image style={styles.journeyTitle} source={require('@/assets/images/journey-title.png')}></Image>
+        <TripCarousel />
+        {/* <Image style={styles.journeyTitle} source={require('@/assets/images/journey-title.png')}></Image>
         <Image style={styles.journeyMain} source={require('@/assets/images/bg-2.png')}></Image>
-        <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image>
+        <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image> */}
         <GuideList></GuideList>
       </View>
     </ImageBackground>
