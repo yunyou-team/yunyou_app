@@ -9,25 +9,37 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarStyle: {
+          paddingHorizontal: 20,
+          height: 100,
+        }
       }}
-      initialRouteName='home'
     >
       <Tabs.Screen
         name="create"
         options={{
           tabBarIcon: () => <AddPlanButton />,
-        }}
-      />
-      <Tabs.Screen
-        name="home"
-        options={{
-          tabBarIcon: () => <Image source={require('../../assets/images/home.png')} />,
+          tabBarItemStyle: {
+            flex: 1
+          }
         }}
       />
       <Tabs.Screen
         name="ailink"
         options={{
           tabBarIcon: () => <Image source={require('../../assets/images/ailink.png')} />,
+          tabBarItemStyle: {
+            flex: 0.5
+          }
+        }}
+      />
+      <Tabs.Screen
+        name="index"
+        options={{
+          tabBarIcon: () => <Image source={require('../../assets/images/home.png')} />,
+          tabBarItemStyle: {
+            flex: 0.5
+          }
         }}
       />
     </Tabs>
