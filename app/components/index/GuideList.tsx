@@ -120,7 +120,7 @@ export default function CardsFlatListHorizontal() {
 // 样式定义
 const styles = StyleSheet.create({
     container: {
-        marginTop: 200,
+        // marginTop: 200,
         flexGrow: 0,
         flexDirection: 'row', // 设置为行内布局
         justifyContent: 'flex-start', // 子元素在主轴（这里是水平轴）上的起始位

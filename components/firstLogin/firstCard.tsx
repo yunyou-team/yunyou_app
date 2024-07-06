@@ -6,9 +6,6 @@ export default function FirstCard({imageSource, buttonText}) {
     <TouchableHighlight
         onPress={add}
         underlayColor="#DDDDDD"
-        style={{
-          margin: 20,
-        }}
       >
         <View style={style.card} >
             <View style={style.box}>
