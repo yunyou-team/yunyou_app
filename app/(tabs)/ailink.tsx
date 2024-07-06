@@ -1,5 +1,4 @@
-import { Text, View } from "react-native";
-import { StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { globalColor } from '@/style/color'
 

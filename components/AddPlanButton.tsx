@@ -1,3 +1,4 @@
+import { globalColor } from '@/style/color';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -6,17 +7,16 @@ import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react
 const AddPlanButton = (props: TouchableOpacityProps) => {
   const onPress = () => {
     // 跳转
-    router.push('/create');
+    // router.push('/create');
+    console.log('打开创建行程浮窗');
   }
 
   return (
     <TouchableOpacity onPress={onPress} {...props}>
       <LinearGradient
         style={styles.constainer}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        locations={[0.3, 1]}
-        colors={['#49E1C4', '#10D3B1']}
+        locations={globalColor.THEME_TWO.location}
+        colors={globalColor.THEME_TWO.color}
       >
         <MaterialIcons name="add" size={24} color="white" />
         <Text style={styles.ButtonText}>创建行程</Text>
