@@ -2,20 +2,12 @@ import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { globalColor } from '@/style/color'
 
-export default function Home() {
+export default function AiLink() {
   return (
     <View
       style={styles.viewBg}
     >
-      <LinearGradient
-        colors={globalColor.THEME_TWO.color} // 定义颜色数组
-        locations={globalColor.THEME_TWO.location} // 渐变位置
-        style={styles.viewBg}
-      >
-        <Text style={styles.redColor}>Home</Text>
-        <Text style={styles.greenColor}>Home</Text>
-        <ActivityIndicator color={globalColor.FONT_ONE} animating={true}></ActivityIndicator>
-      </LinearGradient>
+      <Text>AiLink</Text>
     </View>
   );
 }
