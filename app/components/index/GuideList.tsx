@@ -71,7 +71,7 @@ export default function CardsFlatListHorizontal() {
         if (showFooterImage ) {
             console.log('番茄------------');
             // 隐藏图片
-            router.push('./create')
+            router.push('./createTab')
             setShowFooterImage(false);
             // setOpacity(1)
         }

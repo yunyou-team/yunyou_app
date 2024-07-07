@@ -1,13 +1,14 @@
 import { FocusAwareStatusBar } from "@/components/FocusAwareStatusBar";
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import GuideList from '../components/index/GuideList';
+import { globalColor } from "@/style/color";
 
 export default function HomeScreen() {
   const renderHeader = () => {
     return (
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Image source={require('@/assets/images/menu.png')} />
+          <Image style={[styles.headerLeft, styles.menu]} source={require('@/assets/images/menu.png')} />
           <Text style={styles.nameText}>Hi, Lily</Text>
         </View>
         <View style={styles.avatar} />
@@ -42,16 +43,20 @@ const styles = StyleSheet.create({
   avatar: {
     width: 42,
     height: 42,
-    borderRadius: 18,
-    backgroundColor: 'pink'
+    borderRadius: 50,
+    backgroundColor: globalColor.THEME_ONE
   },
   headerLeft: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  menu: {
+    width: 24,
+    height: 24
+  },
   nameText: {
     marginLeft: 8,
-    fontWeight: 600,
+    fontWeight: 900,
     fontSize: 18
   },
   journeyTitle: {
