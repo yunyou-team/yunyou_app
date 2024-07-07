@@ -9,14 +9,14 @@ export default function Primary() {
         alignItems: "center",
       }}
     >
-      <View style={{ marginTop: 200 , marginBottom: 15}}>
+      <View style={{ marginBottom: 15 }}>
         <FirstCard
           imageSource={require('@/assets/images/createTravel.png')}
           buttonText="+ 创建行程"
           routerSource="./create"
         />
       </View>
-      <View style={{marginTop: 15}}>
+      <View style={{ marginTop: 15 }}>
         <FirstCard
           imageSource={require('@/assets/images/createAI.png')}
           buttonText="+ AI解析"
