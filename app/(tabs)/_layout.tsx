@@ -23,13 +23,13 @@ export default function TabLayout() {
           borderTopRightRadius: 18,
           paddingHorizontal: 20,
           height: 100,
-        }
+        },
       }}
     >
       <Tabs.Screen
-        name="create"
+        name="createTab"
         options={{
-          tabBarIcon: (focused) => <AddPlanButton />,
+          tabBarIcon: () => <AddPlanButton />,
           tabBarItemStyle: {
             flex: 1
           }

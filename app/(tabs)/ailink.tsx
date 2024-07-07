@@ -1,30 +1,19 @@
-import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
-import { globalColor } from '@/style/color'
+import { ImageBackground, StyleSheet, View } from "react-native";
+import Primary from "../../components/Primary";
 
 export default function AiLink() {
   return (
-    <View
-      style={styles.viewBg}
-    >
-      <Text>AiLink</Text>
-    </View>
+    <ImageBackground source={require('@/assets/images/background.png')} style={styles.container}>
+      <Primary />
+    </ImageBackground>
   );
 }
 
 
 const styles = StyleSheet.create({
-  redColor: {
-    color: globalColor.FONT_ONE,
-  },
-  greenColor: {
-    color: globalColor.FONT_TWO,
-  },
-  viewBg: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%',
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   }
 });
