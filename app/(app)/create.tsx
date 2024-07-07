@@ -1,3 +1,4 @@
+import { FocusAwareStatusBar } from "@/components/FocusAwareStatusBar";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { router, useNavigation } from "expo-router";
 import { Text, View } from "react-native";
@@ -16,7 +17,9 @@ export default function CreateScreen() {
         alignItems: "center",
       }}
     >
-      <TabBarIcon name="arrow-back" onPress={goBack}/>
+      <FocusAwareStatusBar />
+
+      <TabBarIcon name="arrow-back" onPress={goBack} />
       <Text>123</Text>
     </View>
   );

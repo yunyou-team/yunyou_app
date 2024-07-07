@@ -1,5 +1,5 @@
-import { globalColor } from "@/style/color";
-import { Image, ImageBackground, StyleSheet, View, Text } from 'react-native';
+import { FocusAwareStatusBar } from "@/components/FocusAwareStatusBar";
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import GuideList from '../components/index/GuideList';
 
 export default function HomeScreen() {
@@ -20,21 +20,17 @@ export default function HomeScreen() {
       style={{
         flex: 1,
       }}>
-      <View style={styles.home}>
+        <FocusAwareStatusBar />
         {renderHeader()}
         <Image style={styles.journeyTitle} source={require('@/assets/images/journey-title.png')}></Image>
         <Image style={styles.journeyMain} source={require('@/assets/images/bg-2.png')}></Image>
         <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image>
         <GuideList></GuideList>
-      </View>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  home: {
-    flex: 1,
-  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
