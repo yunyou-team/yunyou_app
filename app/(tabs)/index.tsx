@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   },
   journeyMain: {
     width: 376,
-    height: 329
+    height: 329,
+    marginBottom: 40
   },
   guideTitle: {
     width: 130,

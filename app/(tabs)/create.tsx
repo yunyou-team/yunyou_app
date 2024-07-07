@@ -42,7 +42,7 @@ export default function CreateScreen() {
         longitudeDelta: 0.0421,
       }}
       showsUserLocation={true}
-      followsUserLocation={true} // 地图跟随用户位置变化
+      followsUserLocation={false} // 地图跟随用户位置变化
       mapType="standard" // 标准地图类型
     >
       {location && (

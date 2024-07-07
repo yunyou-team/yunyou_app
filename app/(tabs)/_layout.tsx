@@ -38,7 +38,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="ailink"
         options={{
-          tabBarIcon: ({focused}) => mackTabItem(<Image source={require('../../assets/images/ailink.png')} />, focused),
+          tabBarIcon: ({focused}) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/ai-link.png')} />, focused),
           tabBarItemStyle: {
             flex: 0.5
           }
@@ -47,7 +47,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({focused}) => mackTabItem(<Image source={require('../../assets/images/home.png')} />, focused),
+          tabBarIcon: ({focused}) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/home.png')} />, focused),
           tabBarItemStyle: {
             flex: 0.5
           }
@@ -68,5 +68,9 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: '#275b51',
     marginTop: 4
+  },
+  icon: {
+    width: 32,
+    height: 32
   }
 })
