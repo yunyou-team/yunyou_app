@@ -15,7 +15,8 @@ export default function FirstCard({ imageSource, buttonText, routerSource } : ca
   };
 
   return (
-    <TouchableHighlight 
+    <TouchableHighlight
+        style={{borderRadius: 16}}
         onPressOut={handleAdd} 
         underlayColor="#DDDDDD">
       <View style={styles.card}>
