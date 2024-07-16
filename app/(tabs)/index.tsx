@@ -9,7 +9,7 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Image style={[styles.headerLeft, styles.menu]} source={require('@/assets/images/menu.png')} />
-          <Text style={styles.nameText}>Hi, Lily</Text>
+          <Text style={styles.nameText}>Hi, Lily 👋</Text>
         </View>
         <View style={styles.avatar} />
       </View>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 48,
     marginTop: 60,
-    marginBottom: 59,
+    marginBottom: 32,
     paddingHorizontal: 18,
   },
   avatar: {
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
   nameText: {
     marginLeft: 8,
     fontWeight: 900,
-    fontSize: 18
+    fontSize: 18,
+    fontFamily: "MiSans"
   },
   journeyTitle: {
     width: 96,
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
   journeyMain: {
     width: 376,
     height: 329,
-    marginBottom: 40
+    marginBottom: 24
   },
   guideTitle: {
     width: 130,
