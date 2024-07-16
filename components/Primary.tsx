@@ -13,7 +13,7 @@ export default function Primary() {
         <FirstCard
           imageSource={require('@/assets/images/createTravel.png')}
           buttonText="+ 创建行程"
-          routerSource="./create"
+          routerSource="create"
         />
       </View>
       <View style={{ marginTop: 15 }}>
