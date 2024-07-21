@@ -8,7 +8,7 @@ const AddPlanButton = (props: TouchableOpacityProps) => {
   const onPress = () => {
     // 跳转
     // router.push('/create');
-    console.log('打开创建行程浮窗');
+    router.push('create');
   }
 
   return (
