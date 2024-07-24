@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import { FlatList, View, Text, StyleSheet, Image, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent } from 'react-native';
 import { router } from 'expo-router';
 import { globalScreen } from '@/style/layout';
+import { adaptScreenHight, adaptScreenWidth } from '@/utils';
 
 // 定义卡片组件
 const Card = ({ item }: { item: any }) => {
@@ -126,8 +127,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start', // 子元素在主轴（这里是水平轴）上的起始位
     },
     card: {
-        width: 266,
-        height: 132,
+        width: adaptScreenWidth(266),
+        height: adaptScreenHight(132),
         borderRadius: 16,
         padding: 4,
         backgroundColor: 'white',
@@ -144,16 +145,16 @@ const styles = StyleSheet.create({
     cardText: {
         fontSize: 14,
         lineHeight: 20, // 根据实际行高调整
-        width: 122,
+        width: adaptScreenWidth(122),
         color: globalColor.FONT_ONE,
-        marginBottom: 16
+        marginBottom: adaptScreenHight(12)
     },
     contentContainer: {
         paddingLeft: 19, // 内容容器的左边距
     },
     cardImg: {
-        width: 124,
-        height: 124,
+        width: adaptScreenWidth(124),
+        height: adaptScreenHight(124),
         borderRadius: 16,
         resizeMode: 'cover'
     },
@@ -161,8 +162,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row', // 设置为行内布局
     },
     headerImg: {
-        width: 20,
-        height: 20,
+        width: adaptScreenWidth(20),
+        height: adaptScreenHight(20),
         borderRadius: 50,
         marginRight: 4
     },
@@ -172,8 +173,8 @@ const styles = StyleSheet.create({
         color: globalColor.FONT_TWO,
     },
     moreImage: {
-        width: 116,
-        height: 132,
+        width: adaptScreenWidth(116),
+        height: adaptScreenHight(132),
         marginRight: 19,
     }
 });

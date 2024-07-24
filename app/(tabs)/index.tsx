@@ -4,6 +4,7 @@ import TripCarousel from "@/components/TripCarousel";
 import { FocusAwareStatusBar } from "@/components/FocusAwareStatusBar";
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import GuideList from '../components/index/GuideList';
+import { adaptScreenHight, adaptScreenWidth } from "@/utils";
 
 export default function HomeScreen() {
   const renderHeader = () => {
@@ -26,10 +27,11 @@ export default function HomeScreen() {
         <FocusAwareStatusBar />
         {renderHeader()}
         <Image style={styles.journeyTitle} source={require('@/assets/images/journey-title.png')}></Image>
-        <TripCarousel />
-        {/* <Image style={styles.journeyMain} source={require('@/assets/images/bg-2.png')}></Image> */}
+        {/* <TripCarousel /> */}
+        <Image style={styles.journeyMain} source={require('@/assets/images/bg-2.png')}></Image>
         <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image>
         <GuideList></GuideList>
+        {/* <MyDrawerComponent></MyDrawerComponent> */}
     </ImageBackground>
   );
 }
@@ -38,14 +40,14 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 48,
+    height: adaptScreenHight(48),
     marginTop: 60,
     marginBottom: 32,
     paddingHorizontal: 18,
   },
   avatar: {
-    width: 42,
-    height: 42,
+    width: adaptScreenWidth(42),
+    height: adaptScreenHight(42),
     borderRadius: 50,
     backgroundColor: globalColor.THEME_ONE
   },
@@ -54,8 +56,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   menu: {
-    width: 24,
-    height: 24
+    width: adaptScreenWidth(24),
+    height: adaptScreenHight(24)
   },
   nameText: {
     marginLeft: 8,
@@ -64,20 +66,20 @@ const styles = StyleSheet.create({
     fontFamily: "MiSans"
   },
   journeyTitle: {
-    width: 96,
-    height: 23,
+    width: adaptScreenWidth(96),
+    height: adaptScreenHight(23),
     resizeMode: 'cover',
     marginLeft: 19,
     marginBottom: 16
   },
   journeyMain: {
-    width: 376,
-    height: 329,
+    width: adaptScreenWidth(376),
+    height: adaptScreenHight(329),
     marginBottom: 24
   },
   guideTitle: {
-    width: 130,
-    height: 24,
+    width: adaptScreenWidth(130),
+    height: adaptScreenHight(24),
     resizeMode: 'cover',
     marginLeft: 19,
     marginBottom: 16
