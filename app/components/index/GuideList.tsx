@@ -1,9 +1,9 @@
 import { globalColor } from '@/style/color';
 import React, { useRef, useState } from 'react';
-import { FlatList, View, Text, StyleSheet, Image, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent } from 'react-native';
+import { FlatList, View, Text, Image, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent } from 'react-native';
 import { router } from 'expo-router';
 import { globalScreen } from '@/style/layout';
-import { adaptScreenHight, adaptScreenWidth } from '@/utils';
+import { YunYouStyleSheet } from '@/utils/index'
 
 // 定义卡片组件
 const Card = ({ item }: { item: any }) => {
@@ -119,7 +119,7 @@ export default function CardsFlatListHorizontal() {
 }
 
 // 样式定义
-const styles = StyleSheet.create({
+const styles = YunYouStyleSheet.create({
     container: {
         // marginTop: 200,
         flexGrow: 0,
@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start', // 子元素在主轴（这里是水平轴）上的起始位
     },
     card: {
-        width: adaptScreenWidth(266),
-        height: adaptScreenHight(132),
+        width: 266,
+        height: 132,
         borderRadius: 16,
         padding: 4,
         backgroundColor: 'white',
@@ -145,16 +145,16 @@ const styles = StyleSheet.create({
     cardText: {
         fontSize: 14,
         lineHeight: 20, // 根据实际行高调整
-        width: adaptScreenWidth(122),
+        width: 122,
         color: globalColor.FONT_ONE,
-        marginBottom: adaptScreenHight(12)
+        marginBottom: 12
     },
     contentContainer: {
         paddingLeft: 19, // 内容容器的左边距
     },
     cardImg: {
-        width: adaptScreenWidth(124),
-        height: adaptScreenHight(124),
+        width: 124,
+        height: 124,
         borderRadius: 16,
         resizeMode: 'cover'
     },
@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row', // 设置为行内布局
     },
     headerImg: {
-        width: adaptScreenWidth(20),
-        height: adaptScreenHight(20),
+        width: 20,
+        height: 20,
         borderRadius: 50,
         marginRight: 4
     },
@@ -173,8 +173,8 @@ const styles = StyleSheet.create({
         color: globalColor.FONT_TWO,
     },
     moreImage: {
-        width: adaptScreenWidth(116),
-        height: adaptScreenHight(132),
+        width: 116,
+        height: 132,
         marginRight: 19,
     }
 });

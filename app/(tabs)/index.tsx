@@ -2,9 +2,9 @@ import { globalColor } from "@/style/color";
 import { LinearGradient } from "expo-linear-gradient";
 import TripCarousel from "@/components/TripCarousel";
 import { FocusAwareStatusBar } from "@/components/FocusAwareStatusBar";
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { Image, ImageBackground, Text, View } from 'react-native';
 import GuideList from '../components/index/GuideList';
-import { adaptScreenHight, adaptScreenWidth } from "@/utils";
+import { YunYouStyleSheet } from '@/utils/index'
 
 export default function HomeScreen() {
   const renderHeader = () => {
@@ -36,18 +36,18 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = YunYouStyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: adaptScreenHight(48),
+    height: 48,
     marginTop: 60,
     marginBottom: 32,
     paddingHorizontal: 18,
   },
   avatar: {
-    width: adaptScreenWidth(42),
-    height: adaptScreenHight(42),
+    width: 42,
+    height: 42,
     borderRadius: 50,
     backgroundColor: globalColor.THEME_ONE
   },
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   menu: {
-    width: adaptScreenWidth(24),
-    height: adaptScreenHight(24)
+    width: 24,
+    height: 24
   },
   nameText: {
     marginLeft: 8,
@@ -66,20 +66,20 @@ const styles = StyleSheet.create({
     fontFamily: "MiSans"
   },
   journeyTitle: {
-    width: adaptScreenWidth(96),
-    height: adaptScreenHight(23),
+    width: 96,
+    height: 23,
     resizeMode: 'cover',
     marginLeft: 19,
     marginBottom: 16
   },
   journeyMain: {
-    width: adaptScreenWidth(376),
-    height: adaptScreenHight(329),
+    width: 376,
+    height: 329,
     marginBottom: 24
   },
   guideTitle: {
-    width: adaptScreenWidth(130),
-    height: adaptScreenHight(24),
+    width: 130,
+    height: 24,
     resizeMode: 'cover',
     marginLeft: 19,
     marginBottom: 16
