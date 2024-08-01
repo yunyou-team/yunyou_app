@@ -8,7 +8,7 @@ const dp2px = (uiElementPx: number) => {
     return (uiElementPx * globalScreen.width) / uiWidthPx;
 }
 
-const YunYouStyleSheet = {
+const AdaptStyleSheet = {
     create(style: Record<string, any>) {
         let s = { ...style };
         // 目前仅对以下的属性进行处理
@@ -44,4 +44,4 @@ const YunYouStyleSheet = {
     },
 };
 
-export default YunYouStyleSheet;
+export default AdaptStyleSheet;

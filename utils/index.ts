@@ -1,5 +1,5 @@
-import YunYouStyleSheet from './adaptScreen';
+import AdaptStyleSheet from './adaptScreen';
 
 export {
-  YunYouStyleSheet // 全局适配
+  AdaptStyleSheet // 全局适配
 } 

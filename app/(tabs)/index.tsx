@@ -4,7 +4,7 @@ import TripCarousel from "@/components/TripCarousel";
 import { FocusAwareStatusBar } from "@/components/FocusAwareStatusBar";
 import { Image, ImageBackground, Text, View } from 'react-native';
 import GuideList from '../components/index/GuideList';
-import { YunYouStyleSheet } from '@/utils/index'
+import { AdaptStyleSheet } from '@/utils/index'
 
 export default function HomeScreen() {
   const renderHeader = () => {
@@ -36,7 +36,7 @@ export default function HomeScreen() {
   );
 }
 
-const styles = YunYouStyleSheet.create({
+const styles = AdaptStyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
