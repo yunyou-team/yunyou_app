@@ -20,12 +20,12 @@ export default function HomeScreen() {
       style={{
         flex: 1,
       }}>
-        <FocusAwareStatusBar />
-        {renderHeader()}
-        <Image style={styles.journeyTitle} source={require('@/assets/images/journey-title.png')}></Image>
-        <Image style={styles.journeyMain} source={require('@/assets/images/bg-2.png')}></Image>
-        <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image>
-        <GuideList></GuideList>
+      <FocusAwareStatusBar />
+      {renderHeader()}
+      <Image style={styles.journeyTitle} source={require('@/assets/images/journey-title.png')}></Image>
+      <Image style={styles.journeyMain} source={require('@/assets/images/bg-2.png')}></Image>
+      <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image>
+      <GuideList></GuideList>
     </ImageBackground>
   );
 }
@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   },
   nameText: {
     marginLeft: 8,
-    fontWeight: 600,
     fontSize: 18
   },
   journeyTitle: {

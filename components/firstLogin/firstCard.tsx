@@ -2,22 +2,22 @@ import { router } from "expo-router";
 import React from "react";
 import { Text, View, Image, StyleSheet, TouchableHighlight } from "react-native";
 
-type cardProps={
+type cardProps = {
   imageSource: object,
   buttonText: string,
   routerSource: string
 }
 
-export default function FirstCard({ imageSource, buttonText, routerSource } : cardProps) {
+export default function FirstCard({ imageSource, buttonText, routerSource }: cardProps) {
   const handleAdd = () => {
     console.log("=====添加=====");
     router.push(routerSource);
   };
 
   return (
-    <TouchableHighlight 
-        onPressOut={handleAdd} 
-        underlayColor="#DDDDDD">
+    <TouchableHighlight
+      onPressOut={handleAdd}
+      underlayColor="#DDDDDD">
       <View style={styles.card}>
         <View style={styles.box}>
           <Image style={styles.img} source={imageSource} resizeMode="cover" />
