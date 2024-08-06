@@ -51,24 +51,24 @@ export default function CardsFlatListHorizontal() {
 
 
         // 判断是否滚动到末尾并继续拉动了80px
-        if (x > lastWidth.current - 10 && x < lastWidth.current ) {
+        if (x > lastWidth.current - 10 && x < lastWidth.current) {
             // setOpacity(0)
             setShowFooterImage(false);
-            console.log('小于 <', x, lastWidth.current - 80,lastWidth.current ); 
-        } else if (x > flatListWidth.current - globalScreen.width + 80 ) {
-            lastWidth.current = flatListWidth.current - globalScreen.width + 80 
+            console.log('小于 <', x, lastWidth.current - 80, lastWidth.current);
+        } else if (x > flatListWidth.current - globalScreen.width + 80) {
+            lastWidth.current = flatListWidth.current - globalScreen.width + 80
             setShowFooterImage(true);
             // setOpacity(1)
-            console.log('翻页',x, lastWidth.current); 
+            console.log('翻页', x, lastWidth.current);
         }
     };
 
     const handleTouchEnd = () => {
         console.log('松手+++++');
         setShowFooterImage(false);
-       
+
         // 当松手时
-        if (showFooterImage ) {
+        if (showFooterImage) {
             console.log('番茄------------');
             // 隐藏图片
             router.push('./create')
@@ -79,10 +79,10 @@ export default function CardsFlatListHorizontal() {
 
     const onContentSizeChange = (width: number) => {
         // width 参数是 FlatList 的内容宽度
-        console.log(width,'width');
+        console.log(width, 'width');
         flatListWidth.current = width;
 
-      };
+    };
 
     return (
         <View style={styles.container}>
@@ -100,12 +100,12 @@ export default function CardsFlatListHorizontal() {
                 // onLayout={onLayoutHandler} // 添加 onLayout 事件处理器
                 onTouchEnd={handleTouchEnd}
                 onContentSizeChange={onContentSizeChange}
-            ListFooterComponent={() => (
-                showFooterImage && (<Image
-                    style={[styles.moreImage]}
-                    source={require('@/assets/images/guide-more.png')} // 替换为你的图片路径
-                />
-            ))}
+                ListFooterComponent={() => (
+                    showFooterImage && (<Image
+                        style={[styles.moreImage]}
+                        source={require('@/assets/images/guide-more.png')} // 替换为你的图片路径
+                    />
+                    ))}
             />
             {/* {
                 showFooterImage && (<Image
