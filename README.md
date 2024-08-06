@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
 如需要使用全局的样式适配 使用规则如下：
 
 ```
-import { AdaptStyleSheet } from '@/utils/index'  // 引入样式适配工具
+import { CreateAdaptStyleSheet } from '@/utils/index'  // 引入样式适配工具
 
-const styles = AdaptStyleSheet.create({   // 使用样式适配工具
+const styles = CreateAdaptStyleSheet.create({   // 使用样式适配工具
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
