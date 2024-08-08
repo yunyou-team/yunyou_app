@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { FlatList, View, Text, Image, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent } from 'react-native';
 import { router } from 'expo-router';
 import { globalScreen } from '@/style/layout';
-import { CreateAdaptStyleSheet } from '@/utils/index'
+import { createAdaptStyleSheet } from '@/utils/index'
 
 // 定义卡片组件
 const Card = ({ item }: { item: any }) => {
@@ -119,7 +119,7 @@ export default function CardsFlatListHorizontal() {
 }
 
 // 样式定义
-const styles = CreateAdaptStyleSheet.create({
+const styles = createAdaptStyleSheet.create({
     container: {
         // marginTop: 200,
         flexGrow: 0,

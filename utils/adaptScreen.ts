@@ -8,7 +8,7 @@ const dp2px = (uiElementPx: number) => {
     return (uiElementPx * globalScreen.width) / uiWidthPx;
 }
 
-const CreateAdaptStyleSheet = {
+const createAdaptStyleSheet = {
     create(style: Record<string, any>) {
         let s = { ...style };
         // 目前仅对以下的属性进行处理
@@ -44,4 +44,4 @@ const CreateAdaptStyleSheet = {
     },
 };
 
-export default CreateAdaptStyleSheet;
+export default createAdaptStyleSheet;

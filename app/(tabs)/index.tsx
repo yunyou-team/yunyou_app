@@ -4,7 +4,7 @@ import TripCarousel from "@/components/TripCarousel";
 import { FocusAwareStatusBar } from "@/components/FocusAwareStatusBar";
 import { Image, ImageBackground, Text, View } from 'react-native';
 import GuideList from '../components/index/GuideList';
-import { CreateAdaptStyleSheet } from '@/utils/index'
+import { createAdaptStyleSheet } from '@/utils/index'
 
 export default function HomeScreen() {
   const renderHeader = () => {
@@ -36,7 +36,7 @@ export default function HomeScreen() {
   );
 }
 
-const styles = CreateAdaptStyleSheet.create({
+const styles = createAdaptStyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',

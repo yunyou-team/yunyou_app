@@ -1,5 +1,5 @@
-import CreateAdaptStyleSheet from './adaptScreen';
+import createAdaptStyleSheet from './adaptScreen';
 
 export {
-  CreateAdaptStyleSheet // 全局适配
+  createAdaptStyleSheet // 全局适配
 } 
