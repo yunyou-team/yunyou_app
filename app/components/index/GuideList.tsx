@@ -1,8 +1,9 @@
 import { globalColor } from '@/style/color';
 import React, { useRef, useState } from 'react';
-import { FlatList, View, Text, StyleSheet, Image, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent } from 'react-native';
+import { FlatList, View, Text, Image, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent } from 'react-native';
 import { router } from 'expo-router';
 import { globalScreen } from '@/style/layout';
+import { createAdaptStyleSheet } from '@/utils/index'
 
 // 定义卡片组件
 const Card = ({ item }: { item: any }) => {
@@ -35,11 +36,11 @@ export default function CardsFlatListHorizontal() {
     const lastWidth = useRef<number>(10000);
     // const opacity = useRef<number>(1);
 
-    console.log('执行---');
+    // console.log('执行---');
 
     // 数据源
     const data = [
-        { id: '1', title: '第一次来泰国怎么玩？一篇教会你7天6晚玩转曼谷+普吉岛！', name: '云游官方账号', time: '05.02', img: 'https://www.kkday.com/zh-my/blog/wp-content/uploads/%E6%97%A5%E6%9C%AC%E4%B8%9C%E4%BA%ACTokyo%E6%97%85%E6%B8%B8%E6%94%BB%E7%95%A50.jpg' },
+        { id: '1', title: '第一次来泰国怎么玩？一篇教会你7天6晚玩转曼谷+仙本那！', name: '云游官方账号', time: '05.02', img: 'https://www.kkday.com/zh-my/blog/wp-content/uploads/%E6%97%A5%E6%9C%AC%E4%B8%9C%E4%BA%ACTokyo%E6%97%85%E6%B8%B8%E6%94%BB%E7%95%A50.jpg' },
         { id: '2', title: '第一次来泰国怎么玩？一篇教会你7天6晚玩转曼谷+普吉岛！', name: '云游官方账号', time: '05.02', img: 'https://www.agoda.com/wp-content/uploads/2019/01/Things-to-do-in-Tokyo-Tokyo-Tower.jpg' },
         { id: '3', title: '第一次来泰国怎么玩？一篇教会你7天6晚玩转曼谷+普吉岛！', name: '云游官方账号', time: '05.02', img: 'https://www.snowmonkeyresorts.com/wp-content/uploads/2020/10/3932697_m.jpg' },
         // ... 更多卡片数据
@@ -54,24 +55,24 @@ export default function CardsFlatListHorizontal() {
         if (x > lastWidth.current - 10 && x < lastWidth.current ) {
             // setOpacity(0)
             setShowFooterImage(false);
-            console.log('小于 <', x, lastWidth.current - 80,lastWidth.current ); 
+            // console.log('小于 <', x, lastWidth.current - 80,lastWidth.current ); 
         } else if (x > flatListWidth.current - globalScreen.width + 80 ) {
             lastWidth.current = flatListWidth.current - globalScreen.width + 80 
             setShowFooterImage(true);
             // setOpacity(1)
-            console.log('翻页',x, lastWidth.current); 
+            // console.log('翻页',x, lastWidth.current); 
         }
     };
 
     const handleTouchEnd = () => {
-        console.log('松手+++++');
+        // console.log('松手+++++');
         setShowFooterImage(false);
        
         // 当松手时
         if (showFooterImage ) {
             console.log('番茄------------');
             // 隐藏图片
-            router.push('./create')
+            router.push('./createTab')
             setShowFooterImage(false);
             // setOpacity(1)
         }
@@ -79,7 +80,7 @@ export default function CardsFlatListHorizontal() {
 
     const onContentSizeChange = (width: number) => {
         // width 参数是 FlatList 的内容宽度
-        console.log(width,'width');
+        // console.log(width,'width');
         flatListWidth.current = width;
 
       };
@@ -118,7 +119,7 @@ export default function CardsFlatListHorizontal() {
 }
 
 // 样式定义
-const styles = StyleSheet.create({
+const styles = createAdaptStyleSheet.create({
     container: {
         // marginTop: 200,
         flexGrow: 0,
@@ -146,10 +147,10 @@ const styles = StyleSheet.create({
         lineHeight: 20, // 根据实际行高调整
         width: 122,
         color: globalColor.FONT_ONE,
-        marginBottom: 16
+        marginBottom: 12
     },
     contentContainer: {
-        paddingLeft: 10, // 内容容器的左边距
+        paddingLeft: 19, // 内容容器的左边距
     },
     cardImg: {
         width: 124,
