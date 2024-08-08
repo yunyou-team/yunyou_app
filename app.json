@@ -13,7 +13,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "需要您的位置信息来显示在地图上",
+        "NSLocationAlwaysUsageDescription": "需要您的位置信息来显示在地图上"
+      }
     },
     "android": {
       "adaptiveIcon": {
