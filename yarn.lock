@@ -3839,6 +3839,11 @@ expo-font@~12.0.7, expo-font@~12.0.9:
   dependencies:
     fontfaceobserver "^2.1.0"
 
+expo-image@^1.12.13:
+  version "1.12.13"
+  resolved "https://registry.npmmirror.com/expo-image/-/expo-image-1.12.13.tgz#82a8263c4c2bae3be70241e304c28e5b74956d23"
+  integrity sha512-Dmuc5qmkIsl1nFj8C3Ux3wL2bN4QYW4dM9fkGA8kYiP5Fxf1lT36ldkHk2O2lPFRSFJDvLxT8Tz+7GTko5fzwQ==
+
 expo-keep-awake@~13.0.2:
   version "13.0.2"
   resolved "https://registry.npmmirror.com/expo-keep-awake/-/expo-keep-awake-13.0.2.tgz#5ef31311a339671eec9921b934fdd90ab9652b0e"
