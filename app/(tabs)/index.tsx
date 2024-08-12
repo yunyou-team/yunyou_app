@@ -28,7 +28,7 @@ export default function HomeScreen() {
         <TripCarousel />
         <Image style={styles.journeyTitle} source={require('@/assets/images/journey-title.png')}></Image>
         <Image style={styles.journeyMain} source={require('@/assets/images/bg-2.png')}></Image>
-        <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image> */}
+        <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image>
         <GuideList></GuideList>
     </ImageBackground>
   );
