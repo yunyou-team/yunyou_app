@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+    "@react-native-masked-view/masked-view": "^0.3.1",
     "@react-navigation/drawer": "^6.7.0",
     "@react-navigation/native": "^6.0.2",
     "@types/react-native-snap-carousel": "^3.8.11",
