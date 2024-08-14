@@ -79,3 +79,22 @@ const styles = StyleSheet.create({
 
 ```
 
+
+- 全局样式适配
+
+如需要使用全局的样式适配 使用规则如下：
+
+```
+import { createAdaptStyleSheet } from '@/utils/index'  // 引入样式适配工具
+
+const styles = createAdaptStyleSheet.create({   // 使用样式适配工具
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 48,
+    marginTop: 60,
+    marginBottom: 32,
+    paddingHorizontal: 18,
+  }
+});
+```
