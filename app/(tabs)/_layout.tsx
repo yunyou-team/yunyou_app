@@ -29,9 +29,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="createTab"
         options={{
-          tabBarIcon: () => <AddPlanButton />,
+          tabBarIcon: () => <AddPlanButton style={styles.btn} />,
           tabBarItemStyle: {
-            flex: 1
+            flex: 1,
           }
         }}
       />
@@ -40,7 +40,8 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({focused}) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/ai-link.png')} />, focused),
           tabBarItemStyle: {
-            flex: 0.5
+            flex: 0.5,
+            justifyContent: 'center',
           }
         }}
       />
@@ -49,7 +50,8 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({focused}) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/home.png')} />, focused),
           tabBarItemStyle: {
-            flex: 0.5
+            flex: 0.5,
+            justifyContent: 'center',
           }
         }}
       />
@@ -61,6 +63,7 @@ const styles = StyleSheet.create({
   tabItemContainer: {
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   tabItemDot: {
     width: 6,
@@ -71,6 +74,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     width: 32,
-    height: 32
-  }
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 16
+  },
 })

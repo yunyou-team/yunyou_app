@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 /** 全局适配 */
 const uiWidthPx = 414;
 
-const dp2px = (uiElementPx: number) => {
+export const dp2px = (uiElementPx: number) => {
     return (uiElementPx * globalScreen.width) / uiWidthPx;
 }
 

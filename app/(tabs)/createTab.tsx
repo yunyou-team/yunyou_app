@@ -74,41 +74,41 @@ export default function CreateScreen() {
   return (
     <View style={styles.container}>
       <MapView
-      style={{ flex: 1,width: '100%' }}
-      initialRegion={{
-        latitude: 39.9042,
-        longitude: 116.4074,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }}
-      showsUserLocation={true}
-      followsUserLocation={false} // 地图跟随用户位置变化
-      mapType="standard" // 标准地图类型
-    >
-      {location && (
-        <Marker
-          coordinate={{
-            latitude: 39.909,
-            longitude: 116.3975,
-          }}
-          title="当前位置"
-        />
-      )}
-     
-      
-    </MapView>
-    <TextInput
+        style={{ flex: 1, width: '100%' }}
+        initialRegion={{
+          latitude: 39.9042,
+          longitude: 116.4074,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+        showsUserLocation={true}
+        followsUserLocation={false} // 地图跟随用户位置变化
+        mapType="standard" // 标准地图类型
+      >
+        {location && (
+          <Marker
+            coordinate={{
+              latitude: 39.909,
+              longitude: 116.3975,
+            }}
+            title="当前位置"
+          />
+        )}
+
+
+      </MapView>
+      <TextInput
         style={styles.button}
         placeholder="输入一些文本..."
         value={inputValue} // 控制输入框的值
         onChangeText={handleInputChange} // 处理输入变化
         onSubmitEditing={handleSubmit} // 处理提交事件
       />
-      <TouchableOpacity style={[styles.button, {top: 270}]} onPress={() => openMapFormName()}>
+      <TouchableOpacity style={[styles.button, { top: 270 }]} onPress={() => openMapFormName()}>
         <Text style={styles.buttonText}>Go</Text>
       </TouchableOpacity>
     </View>
-    
+
   );
 }
 

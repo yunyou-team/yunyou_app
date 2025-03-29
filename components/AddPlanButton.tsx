@@ -6,38 +6,44 @@ import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react
 
 const AddPlanButton = (props: TouchableOpacityProps) => {
   const onPress = () => {
-    // 跳转
-    // router.push('/create');
-    router.push('create');
+    router.push('/create');
   }
 
   return (
-    <TouchableOpacity onPress={onPress} {...props}>
+    <TouchableOpacity onPress={onPress} {...props} style={styles.container}>
       <LinearGradient
-        style={styles.constainer}
-        locations={globalColor.THEME_TWO.location}
-        colors={globalColor.THEME_TWO.color}
+        style={styles.linear_container}
+        colors={globalColor.THEME_TWO.color as any}
       >
-        <MaterialIcons name="add" size={24} color="white" />
-        <Text style={styles.ButtonText}>创建行程</Text>
+        <MaterialIcons name="add" size={24} color="#000" />
+        <Text style={styles.buttonText}>创建行程</Text>
       </LinearGradient>
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-  constainer: {
-    flexDirection: 'row',
+  container: {
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 18,
-    borderRadius: 12
+    display: 'flex',
+    flexDirection: 'row',
+    height: 60,
+    marginTop: 45
   },
-  ButtonText: {
-    fontWeight: 600,
+  linear_container: {
+    borderRadius: 16,
+    height: 60,
+    width: 176,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    display: 'flex',
+  },
+  buttonText: {
+    color: '#000',
     fontSize: 20,
-    color: 'white',
-  }
+    fontWeight: '600',
+  },
 })
 
 export default AddPlanButton;

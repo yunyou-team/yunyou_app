@@ -32,8 +32,6 @@ function MyDrawer() {
 
 export default function MyDrawerComponent() {
   return (
-    // <NavigationContainer>
       <MyDrawer />
-    // </NavigationContainer>
   );
 }

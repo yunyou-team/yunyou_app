@@ -1,56 +1,58 @@
 import Carousel from 'react-native-snap-carousel-v4';
 import React, { useState } from 'react';
-import { ImageBackground, Text, View } from 'react-native';
+import { ImageBackground, ImageSourcePropType, Text, View } from 'react-native';
+import { createAdaptStyleSheet } from '@/utils';
+import { dp2px } from '@/utils/adaptScreen';
 
 const Card = (props: { title: string; text: string; source: string }) => {
     return (
-        <ImageBackground
-            source={props.source}
+       <View style={{
+        borderRadius: 16,
+        marginLeft: 19,
+        marginRight: 35,
+        overflow: 'hidden', 
+    }}>
+         <ImageBackground
+            source={props.source as ImageSourcePropType}
             style={{
-                borderRadius: 5,
-                height: 250,
-                padding: 50,
-                marginLeft: 25,
-                marginRight: 25,
+                height: 329,
+                width:266
             }}
         >
             <Text style={{ fontSize: 30 }}>{props.title}</Text>
             <Text>{props.text}</Text>
         </ImageBackground>
+       </View>
     );
 };
 
-const extraCarouselItem = {
-    title: 'Item 4',
-    text: 'Text 4',
-};
 
 const TripCarousel = () => {
     const [carouselItems, setCarouselItems] = useState([
         {
             title: 'Item 1',
             text: 'Text 1',
-            source: require('@/assets/images/bg-2.png'),
+            source: require('@/assets/images/trip_img.png'),
         },
         {
             title: 'Item 2',
             text: 'Text 2',
-            source: require('@/assets/images/bg-2.png'),
+            source: require('@/assets/images/trip_img.png'),
         },
         {
             title: 'Item 3',
             text: 'Text 3',
-            source: require('@/assets/images/bg-2.png'),
+            source: require('@/assets/images/trip_img.png'),
         },
     ]);
 
     return (
-        <View
-            style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}
-        >
+        <View style={styles.journeyMain}>
             <Carousel
-                layout={'default'}
+                layout={'stack'}
                 data={carouselItems}
+                vertical={false}
+                layoutCardOffset={55}
                 renderItem={(item) => (
                     <Card
                         title={item.item.title}
@@ -59,11 +61,18 @@ const TripCarousel = () => {
                     />
                 )}
                 sliderWidth={100}
-                itemWidth={250}
-                
+                itemWidth={dp2px(321)}
             />
         </View>
     );
 };
+
+
+const styles = createAdaptStyleSheet.create({
+    journeyMain: {
+        marginBottom: 42,
+        flexDirection: 'row', 
+    },
+});
 
 export default React.memo(TripCarousel);

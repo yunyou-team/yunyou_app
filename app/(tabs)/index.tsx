@@ -5,6 +5,7 @@ import { FocusAwareStatusBar } from "@/components/FocusAwareStatusBar";
 import { Image, ImageBackground, Text, View } from 'react-native';
 import GuideList from '../components/index/GuideList';
 import { createAdaptStyleSheet } from '@/utils/index'
+import MyDrawerComponent from "../components/index/Menu";
 
 export default function HomeScreen() {
   const renderHeader = () => {
@@ -27,8 +28,8 @@ export default function HomeScreen() {
         <FocusAwareStatusBar />
         {renderHeader()}
         <Image style={styles.journeyTitle} source={require('@/assets/images/journey-title.png')}></Image>
-        {/* <TripCarousel /> */}
-        <Image style={styles.journeyMain} source={require('@/assets/images/bg-2.png')}></Image>
+        <TripCarousel />
+        {/* <Image style={styles.journeyMain} source={require('@/assets/images/bg-2.png')}></Image> */}
         <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image>
         <GuideList></GuideList>
         {/* <MyDrawerComponent></MyDrawerComponent> */}
