@@ -1,6 +1,6 @@
 # 云游 客户端
 
-# 启动流程
+# 1. 启动流程
 
 ```
 yarn install
@@ -10,9 +10,9 @@ yarn start
 输入 i 打开 ios 模拟器
 ```
 
-# 开发规范
+# 2. 开发规范
 
-### 分支开发规范
+### 2.1 分支开发规范
 
 主分支 main
 
@@ -28,9 +28,9 @@ yarn start
 
 3. 找一名研发同学 review 代码，确认无误后 审核人 合入到 release 分支
 
-### 代码开发规范
+### 2.2 代码开发规范
 
-- 开发组件
+- 2.2.1 开发组件
 
 1. 通用组件
 
@@ -42,8 +42,7 @@ yarn start
 
 例如：/app/components/index/xxx.tsx
 
-
-- 全局颜色系统
+- 2.2.2 全局颜色系统
 
 如需要使用全局的颜色变量 使用规则如下：
 
@@ -79,8 +78,7 @@ const styles = StyleSheet.create({
 
 ```
 
-
-- 全局样式适配
+- 2.2.3 全局样式适配
 
 如需要使用全局的样式适配 使用规则如下：
 
@@ -98,3 +96,28 @@ const styles = createAdaptStyleSheet.create({   // 使用样式适配工具
   }
 });
 ```
+
+- 2.2.4 局部样式适配
+
+如果需要局部使用适配，如组件的宽度参数，使用规则如下：
+
+```
+import { dp2px } from '@/utils/adaptScreen';
+
+ <Carousel
+    layout={'stack'}
+    data={carouselItems}
+    vertical={false}
+    layoutCardOffset={55}
+    renderItem={(item) => (
+        <Card
+            title={item.item.title}
+            text={item.item.text}
+            source={item.item.source}
+        />
+    )}
+    sliderWidth={100}
+    itemWidth={dp2px(321)}
+  />
+```
+
