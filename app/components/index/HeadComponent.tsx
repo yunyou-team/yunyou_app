@@ -11,11 +11,11 @@ const styles = createAdaptStyleSheet.create({
     height: 48,
     marginTop: 60,
     marginBottom: 32,
-    paddingHorizontal: 18,
+    paddingHorizontal: 19,
   },
   avatar: {
-    width: 42,
-    height: 42,
+    width: 56,
+    height: 56,
     borderRadius: 50,
     backgroundColor: globalColor.THEME_ONE
   },
@@ -29,10 +29,14 @@ const styles = createAdaptStyleSheet.create({
   },
   nameText: {
     marginLeft: 8,
-    fontWeight: 900,
+    fontWeight: 600,
     fontSize: 18,
     fontFamily: "MiSans"
   },
+  avatarImg: {
+    width: 56,
+    height: 56,
+  }
 });
 
 export const renderHeader = () => {
@@ -42,7 +46,9 @@ export const renderHeader = () => {
         <Image style={[styles.headerLeft, styles.menu]} source={require('@/assets/images/menu.png')} />
         <Text style={styles.nameText}>Hi, Lily 👋</Text>
       </View>
-      <View style={styles.avatar} />
+      <View style={styles.avatar} >
+        <Image style={styles.avatarImg} source={require('@/assets/images/home/home_people.png')} />
+      </View>
     </View>
   );
 };
