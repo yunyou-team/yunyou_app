@@ -1,6 +1,6 @@
 import AddPlanButton from '@/components/AddPlanButton';
 import { Tabs } from 'expo-router';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 function mackTabItem(comp: ReactElement, focused: boolean) {
@@ -13,8 +13,11 @@ function mackTabItem(comp: ReactElement, focused: boolean) {
 }
 
 export default function TabLayout() {
+  const [showTabBar, setShowTabBar] = useState(true);
+
   return (
     <Tabs
+      initialRouteName="index"
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
@@ -23,25 +26,25 @@ export default function TabLayout() {
           borderTopRightRadius: 18,
           paddingHorizontal: 20,
           height: 100,
+          display: showTabBar ? 'flex' : 'none',
         },
       }}
     >
       <Tabs.Screen
         name="createTab"
         options={{
-          tabBarIcon: () => <AddPlanButton style={styles.btn} />,
+          tabBarIcon: () => <AddPlanButton  />,
           tabBarItemStyle: {
-            flex: 1,
+            flex: 2,
           }
         }}
       />
       <Tabs.Screen
-        name="ailink"
+        name="aiLink"
         options={{
           tabBarIcon: ({focused}) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/ai-link.png')} />, focused),
           tabBarItemStyle: {
-            flex: 0.5,
-            justifyContent: 'center',
+            flex: 1,
           }
         }}
       />
@@ -50,8 +53,7 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({focused}) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/home.png')} />, focused),
           tabBarItemStyle: {
-            flex: 0.5,
-            justifyContent: 'center',
+            flex: 1,
           }
         }}
       />
@@ -66,9 +68,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabItemDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
+    width: 4,
+    height: 4,
+    borderRadius: 24,
     backgroundColor: '#275b51',
     marginTop: 4
   },
@@ -77,6 +79,6 @@ const styles = StyleSheet.create({
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 16
+    marginTop: 32
   },
 })

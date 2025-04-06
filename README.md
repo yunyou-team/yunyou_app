@@ -10,6 +10,21 @@ yarn start
 输入 i 打开 ios 模拟器
 ```
 
+# 1.2 注意事项！！
+
+node 版本要求 20
+
+yarn 版本要求 4.7
+
+yarn 更新步骤如下：
+```
+corepack enable
+
+yarn set version stable
+
+yarn install
+```
+
 # 2. 开发规范
 
 ### 2.1 分支开发规范
@@ -121,3 +136,8 @@ import { dp2px } from '@/utils/adaptScreen';
   />
 ```
 
+- 2.2.5 图片引入规范
+
+统一在根目录 assets/images/ 下，对应页面文件夹中 如首页则在 assets/images/home 下。
+
+图片命名规范：页面文件夹名称_图片名称.png，如首页的背景图: home_bg.png

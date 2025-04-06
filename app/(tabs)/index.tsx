@@ -9,20 +9,9 @@ import MyDrawerComponent from "../components/index/Menu";
 import { renderHeader } from "../components/index/HeadComponent";
 
 export default function HomeScreen() {
-  // const renderHeader = () => {
-  //   return (
-  //     <View style={styles.header}>
-  //       <View style={styles.headerLeft}>
-  //         <Image style={[styles.headerLeft, styles.menu]} source={require('@/assets/images/menu.png')} />
-  //         <Text style={styles.nameText}>Hi, Lily 👋</Text>
-  //       </View>
-  //       <View style={styles.avatar} />
-  //     </View>
-  //   )
-  // }
 
   return (
-    <ImageBackground source={require('@/assets/images/background.png')}
+    <ImageBackground source={require('@/assets/images/home/home_bg.png')}
       style={{
         flex: 1,
       }}>

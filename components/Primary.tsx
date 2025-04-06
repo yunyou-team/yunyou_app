@@ -23,7 +23,7 @@ export default function Primary() {
         <FirstCard
           imageSource={require('@/assets/images/createAI.png')}
           mainText="智能创建"
-          routerSource="./ailink"
+          routerSource="./aiLink"
           subText="AI链接解析、AI一键生成"
           buttonText="AI解析"
           imageStyle={{ width: 250, height: 250, resizeMode: 'contain', marginTop: 120, marginRight: 20}}

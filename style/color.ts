@@ -10,9 +10,9 @@ export const globalColor = {
 
 
     /** 主题色 */
-    THEME_ONE: '#10D3B1',
+    THEME_ONE: '#D3FF53',
     THEME_TWO: {
-        color: ['#49E1C4', '#10D3B1'],
-        location: [0.1389, 0.8805]
+        color: ['#E0FF84', '#E0FF84'],
+        location: [0.389, 0.4205]
     },
 }
