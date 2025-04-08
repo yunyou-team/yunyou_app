@@ -17,7 +17,9 @@ export default function AiLink() {
             style={styles.container}
         >
             <FocusAwareStatusBar />
-            <Primary />
+            <View style={styles.viewBg}>
+                <Text>AI解析</Text>
+            </View>
         </ImageBackground>
     );
 }

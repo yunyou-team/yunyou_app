@@ -1,29 +1,41 @@
 import { globalColor } from "@/style/color";
 import { LinearGradient } from "expo-linear-gradient";
-import TripCarousel from "@/components/TripCarousel";
 import { FocusAwareStatusBar } from "@/components/FocusAwareStatusBar";
 import { Image, ImageBackground, Text, View } from 'react-native';
 import GuideList from '../components/index/GuideList';
-import { createAdaptStyleSheet } from '@/utils/index'
+import { createAdaptStyleSheet, storage } from '@/utils/index'
 import MyDrawerComponent from "../components/index/Menu";
 import { renderHeader } from "../components/index/HeadComponent";
+import Primary from "@/components/Primary";
+import { useEffect, useState } from "react";
+import TripCarousel from "../components/index/TripCarousel";
 
 export default function HomeScreen() {
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    const isLogin = async () => {
+      const isLoginStatus = await storage.get('cookie')
+      setIsLogin(!!isLoginStatus)
+    }
+    isLogin()
+  }, [])
 
   return (
-    <ImageBackground source={require('@/assets/images/home/home_bg.png')}
-      style={{
-        flex: 1,
-      }}>
+    <View style={{ flex: 1 }}>
+      {isLogin ? <ImageBackground source={require('@/assets/images/home/home_bg.png')}
+        style={{
+          flex: 1,
+        }}>
         <FocusAwareStatusBar />
         {renderHeader()}
         <Image style={styles.journeyTitle} source={require('@/assets/images/journey-title.png')}></Image>
         <TripCarousel />
-        {/* <Image style={styles.journeyMain} source={require('@/assets/images/bg-2.png')}></Image> */}
         <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image>
         <GuideList></GuideList>
         {/* <MyDrawerComponent></MyDrawerComponent> */}
-    </ImageBackground>
+      </ImageBackground> : <Primary />}
+    </View>
   );
 }
 
