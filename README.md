@@ -17,6 +17,7 @@ node 版本要求 20
 yarn 版本要求 4.7
 
 yarn 更新步骤如下：
+
 ```
 corepack enable
 
@@ -45,7 +46,7 @@ yarn install
 
 ### 2.2 代码开发规范
 
-- 2.2.1 开发组件
+-   2.2.1 开发组件
 
 1. 通用组件
 
@@ -57,7 +58,7 @@ yarn install
 
 例如：/app/components/index/xxx.tsx
 
-- 2.2.2 全局颜色系统
+-   2.2.2 全局颜色系统
 
 如需要使用全局的颜色变量 使用规则如下：
 
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
 
 ```
 
-- 2.2.3 全局样式适配
+-   2.2.3 全局样式适配
 
 如需要使用全局的样式适配 使用规则如下：
 
@@ -112,7 +113,7 @@ const styles = createAdaptStyleSheet.create({   // 使用样式适配工具
 });
 ```
 
-- 2.2.4 局部样式适配
+-   2.2.4 局部样式适配
 
 如果需要局部使用适配，如组件的宽度参数，使用规则如下：
 
@@ -136,8 +137,23 @@ import { dp2px } from '@/utils/adaptScreen';
   />
 ```
 
-- 2.2.5 图片引入规范
+-   2.2.5 图片引入规范
 
 统一在根目录 assets/images/ 下，对应页面文件夹中 如首页则在 assets/images/home 下。
 
-图片命名规范：页面文件夹名称_图片名称.png，如首页的背景图: home_bg.png
+图片命名规范：页面文件夹名称\_图片名称.png，如首页的背景图: home_bg.png
+
+-   2.3 请求接口
+
+接口请求相关逻辑统一在根目录 services 下，如首页的接口请求逻辑在 services/home.ts 下
+
+```typescript
+interface IExampleInfo {
+    info: string;
+}
+
+export async function fetchExampleInfo(): Promise<IExampleInfo> {
+    const { data } = await request.post<IExampleInfo>('/example/info', {});
+    return data;
+}
+```
