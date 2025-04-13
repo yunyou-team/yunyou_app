@@ -157,3 +157,5 @@ export async function fetchExampleInfo(): Promise<IExampleInfo> {
     return data;
 }
 ```
+
+mock 接口在[eazymock](https://eazymock.net/app/project/143e9102-1960-4477-8b55-2714e0468ddd) 平台上创建，申请权限后即可使用
