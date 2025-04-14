@@ -3,6 +3,7 @@ import React from "react";
 import { Text, View, Image, StyleSheet, TouchableHighlight, Button } from "react-native";
 import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'expo-linear-gradient';
+import { createAdaptStyleSheet } from "@/utils";
 
 type cardProps = {
   imageSource: object,
@@ -79,9 +80,8 @@ export default function FirstCard({ imageSource, mainText, routerSource, subText
   );
 }
 
-const styles = StyleSheet.create({
+const styles = createAdaptStyleSheet.create({
   card: {
-    width: 376,
     height: 240,
     borderRadius: 16,
     justifyContent: "center",
@@ -99,15 +99,14 @@ const styles = StyleSheet.create({
   },
   text: {
     position: 'relative',
-    padding: 10
+    marginLeft: 19
   },
   mainText: {
-    fontSize: 30,
+    fontSize: 24,
     fontFamily: "MiSans",
     fontWeight: "600",
     letterSpacing: 1,
-    margin: 10,
-    textAlign: "left"
+    marginBottom: 4
   },
   shadowBox: {
     backgroundColor: 'white',
@@ -118,24 +117,23 @@ const styles = StyleSheet.create({
   },
   subText: {
     fontFamily: 'PingFang SC',
-    fontSize: 15,
-    lineHeight: 22,
-    marginLeft: 11
+    fontSize: 14,
+    lineHeight: 20,
   },
   button: {
-    width: 150,
-    height: 50,
-    borderRadius: 24,
+    width: 136,
+    height: 43,
+    borderRadius: 29,
     backgroundColor: '#FFFFFF8C',
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 20,
-    marginTop: 30
+    marginLeft: 19,
+    marginTop: 30,
   },
   buttonText: {
-    fontSize: 22,
-    fontWeight: 'bold'
+    fontSize: 20,
+    fontWeight: '600'
   },
   container: {
     flex: 1,

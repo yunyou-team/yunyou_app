@@ -1,6 +1,7 @@
 import AddPlanButton from '@/components/AddPlanButton';
+import { storage } from '@/utils';
 import { Tabs } from 'expo-router';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 function mackTabItem(comp: ReactElement, focused: boolean) {
@@ -14,6 +15,14 @@ function mackTabItem(comp: ReactElement, focused: boolean) {
 
 export default function TabLayout() {
   const [showTabBar, setShowTabBar] = useState(true);
+
+  useEffect(() => {
+    const isLogin = async () => {
+      const isLoginStatus = await storage.get('cookie')
+      setShowTabBar(!!isLoginStatus)
+    }
+    isLogin()
+  }, [])
 
   return (
     <Tabs
@@ -33,7 +42,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="createTab"
         options={{
-          tabBarIcon: () => <AddPlanButton  />,
+          tabBarIcon: () => <AddPlanButton />,
           tabBarItemStyle: {
             flex: 2,
           }
@@ -42,7 +51,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="aiLink"
         options={{
-          tabBarIcon: ({focused}) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/ai-link.png')} />, focused),
+          tabBarIcon: ({ focused }) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/ai-link.png')} />, focused),
           tabBarItemStyle: {
             flex: 1,
           }
@@ -51,7 +60,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({focused}) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/home.png')} />, focused),
+          tabBarIcon: ({ focused }) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/home.png')} />, focused),
           tabBarItemStyle: {
             flex: 1,
           }

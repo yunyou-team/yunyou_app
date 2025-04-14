@@ -159,3 +159,31 @@ export async function fetchExampleInfo(): Promise<IExampleInfo> {
 ```
 
 mock 接口在[eazymock](https://eazymock.net/app/project/143e9102-1960-4477-8b55-2714e0468ddd) 平台上创建，申请权限后即可使用
+图片命名规范：页面文件夹名称_图片名称.png，如首页的背景图: home_bg.png
+
+# 3. 全局工具
+### 3.1 全局储存工具 storage
+
+使用如下(注意 是异步)：
+```
+// 在其他文件中使用
+import { storage } from '@/utils/Storage';
+
+// 存储数据
+await storage.set('user', { name: 'John', age: 30 });
+
+// 获取数据
+const user = await storage.get<{ name: string; age: number }>('user');
+
+// 删除数据
+await storage.remove('user');
+
+// 批量操作
+await storage.multiSet([
+  ['key1', 'value1'],
+  ['key2', 'value2'],
+]);
+
+// 获取所有键
+const allKeys = await storage.getAllKeys();
+```
