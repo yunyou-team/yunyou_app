@@ -141,3 +141,30 @@ import { dp2px } from '@/utils/adaptScreen';
 统一在根目录 assets/images/ 下，对应页面文件夹中 如首页则在 assets/images/home 下。
 
 图片命名规范：页面文件夹名称_图片名称.png，如首页的背景图: home_bg.png
+
+# 3. 全局工具
+### 3.1 全局储存工具 storage
+
+使用如下(注意 是异步)：
+```
+// 在其他文件中使用
+import { storage } from '@/utils/Storage';
+
+// 存储数据
+await storage.set('user', { name: 'John', age: 30 });
+
+// 获取数据
+const user = await storage.get<{ name: string; age: number }>('user');
+
+// 删除数据
+await storage.remove('user');
+
+// 批量操作
+await storage.multiSet([
+  ['key1', 'value1'],
+  ['key2', 'value2'],
+]);
+
+// 获取所有键
+const allKeys = await storage.getAllKeys();
+```

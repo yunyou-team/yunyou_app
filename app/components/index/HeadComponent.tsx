@@ -1,8 +1,7 @@
-// HeaderComponent.js
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { globalColor } from "@/style/color";
-import { createAdaptStyleSheet } from '@/utils/index';
+import { createAdaptStyleSheet, storage } from '@/utils/index';
 
 const styles = createAdaptStyleSheet.create({
   header: {
@@ -40,15 +39,23 @@ const styles = createAdaptStyleSheet.create({
 });
 
 export const renderHeader = () => {
+
+  const handleClickPerson = async () => {
+    console.log('跳转个人主页');
+    await storage.clear()
+  }
+
   return (
     <View style={styles.header}>
       <View style={styles.headerLeft}>
         <Image style={[styles.headerLeft, styles.menu]} source={require('@/assets/images/menu.png')} />
         <Text style={styles.nameText}>Hi, Lily 👋</Text>
       </View>
-      <View style={styles.avatar} >
-        <Image style={styles.avatarImg} source={require('@/assets/images/home/home_people.png')} />
-      </View>
+      <TouchableOpacity onPress={handleClickPerson}>
+        <View style={styles.avatar} >
+          <Image style={styles.avatarImg} source={require('@/assets/images/home/home_people.png')} />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
