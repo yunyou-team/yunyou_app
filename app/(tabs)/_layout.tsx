@@ -49,7 +49,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="aiLink"
+        name="aiSelect"
         options={{
           tabBarIcon: ({ focused }) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/ai-link.png')} />, focused),
           tabBarItemStyle: {
