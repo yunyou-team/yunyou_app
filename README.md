@@ -141,9 +141,9 @@ import { dp2px } from '@/utils/adaptScreen';
 
 统一在根目录 assets/images/ 下，对应页面文件夹中 如首页则在 assets/images/home 下。
 
-图片命名规范：页面文件夹名称\_图片名称.png，如首页的背景图: home_bg.png
+图片命名规范：页面文件夹名称_图片名称.png，如首页的背景图: home_bg.png
 
--   2.3 请求接口
+### 2.3 请求接口
 
 接口请求相关逻辑统一在根目录 services 下，如首页的接口请求逻辑在 services/home.ts 下
 
@@ -158,8 +158,7 @@ export async function fetchExampleInfo(): Promise<IExampleInfo> {
 }
 ```
 
-mock 接口在[eazymock](https://eazymock.net/app/project/143e9102-1960-4477-8b55-2714e0468ddd) 平台上创建，申请权限后即可使用
-图片命名规范：页面文件夹名称_图片名称.png，如首页的背景图: home_bg.png
+mock 接口平台待定
 
 # 3. 全局工具
 ### 3.1 全局储存工具 storage
