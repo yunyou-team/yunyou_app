@@ -24,6 +24,7 @@
     "@react-navigation/drawer": "^6.7.0",
     "@react-navigation/native": "^6.0.2",
     "@types/react-native-snap-carousel": "^3.8.11",
+    "axios": "^1.8.4",
     "expo": "^52.0.38",
     "expo-constants": "~17.0.8",
     "expo-font": "~13.0.4",
