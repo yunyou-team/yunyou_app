@@ -1,6 +1,6 @@
 import FirstCard from "@/components/firstLogin/firstCard";
 import { ImageBackground, View } from "react-native";
-import { renderHeader } from "@/app/components/index/HeadComponent";
+import { HeadComponent } from "@/app/components/index/HeadComponent";
 
 export default function Primary() {
   return (
@@ -8,7 +8,7 @@ export default function Primary() {
       style={{
         flex: 1,
       }}>
-      {renderHeader()}
+      <HeadComponent></HeadComponent>
       <View style={{ margin: 19 }}>
         <FirstCard
           imageSource={require('@/assets/images/createTravel.png')}

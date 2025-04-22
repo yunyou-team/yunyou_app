@@ -11,7 +11,7 @@ export default function CreateScreen() {
         fetchExampleInfo().then((res) => {
             setInfo(res.info);
         });
-    });
+    },[]);
 
     const goBack = () => {
         router.back();

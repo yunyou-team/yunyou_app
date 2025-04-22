@@ -1,2 +1,2 @@
 export const domain =
-    'https://api.eazymock.net/mock/143e9102-1960-4477-8b55-2714e0468ddd/173';
+    'https://m1.apifoxmock.com/m1/6232884-5926577-default';

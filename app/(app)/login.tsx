@@ -6,7 +6,11 @@ import { createAdaptStyleSheet, storage } from '@/utils';
 export default function Login() {
   const [isAgreed, setIsAgreed] = useState(false);
 
-  const handlePhoneLogin = async() => {
+  const handlePhoneLogin = () => {
+    router.push('/phoneLogin');
+  };
+
+  const handleAppleLogin = async () => {
     await storage.set('cookie', '17879328848');
     router.push('/(tabs)');
   };
@@ -41,7 +45,7 @@ export default function Login() {
           <Text style={styles.phoneButtonText}>手机号登录</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.appleButton} onPress={() => {}}>
+        <TouchableOpacity style={styles.appleButton} onPress={handleAppleLogin}>
           {/* <Image 
             source={require('@/assets/images/apple.png')} 
             style={styles.buttonIcon}
