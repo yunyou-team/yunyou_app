@@ -1,6 +1,6 @@
 import AddPlanButton from '@/components/AddPlanButton';
 import { storage } from '@/utils';
-import { Tabs } from 'expo-router';
+import { Tabs, Redirect } from 'expo-router';
 import { ReactElement, useEffect, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
@@ -14,15 +14,29 @@ function mackTabItem(comp: ReactElement, focused: boolean) {
 }
 
 export default function TabLayout() {
-  const [showTabBar, setShowTabBar] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const isLogin = async () => {
-      const isLoginStatus = await storage.get('cookie')
-      setShowTabBar(!!isLoginStatus)
+    checkLoginStatus();
+  }, []);
+
+  const checkLoginStatus = async () => {
+    try {
+      const cookie = await storage.get('cookie');
+      setIsLoggedIn(!!cookie);
+    } catch (error) {
+      console.error('Error checking login status:', error);
+      setIsLoggedIn(false);
     }
-    isLogin()
-  }, [])
+  };
+
+  if (isLoggedIn === null) {
+    return null;
+  }
+
+  if (!isLoggedIn) {
+    return <Redirect href="/(app)/login" />;
+  }
 
   return (
     <Tabs
@@ -35,7 +49,6 @@ export default function TabLayout() {
           borderTopRightRadius: 18,
           paddingHorizontal: 20,
           height: 100,
-          display: showTabBar ? 'flex' : 'none',
         },
       }}
     >
@@ -49,7 +62,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="aiLink"
+        name="aiSelect"
         options={{
           tabBarIcon: ({ focused }) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/ai-link.png')} />, focused),
           tabBarItemStyle: {

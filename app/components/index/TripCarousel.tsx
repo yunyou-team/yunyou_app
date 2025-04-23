@@ -47,43 +47,43 @@ const Card = (props: CardProps) => {
     }
 
     return (
-       <View style={styles.card}>
-         <ImageBackground
-            source={props.source as ImageSourcePropType}
-            style={styles.cardBackground}
-            imageStyle={styles.backgroundImage}
-        >
-            <View style={styles.contentContainer}>
-                <View style={styles.topContent}>
-                    <Text style={styles.title}>{props.title}</Text>
-                </View>
-                <View style={styles.bottomContent}>
-                    <View style={styles.locationContainer}>
-                        <Image 
-                            source={require('@/assets/images/home/location_icon.png')} 
-                            style={styles.locationIcon}
-                        />
-                        <Text style={styles.locationText}>{props.location}</Text>
+        <View style={styles.card}>
+            <ImageBackground
+                source={props.source as ImageSourcePropType}
+                style={styles.cardBackground}
+                imageStyle={styles.backgroundImage}
+            >
+                <View style={styles.contentContainer}>
+                    <View style={styles.topContent}>
+                        <Text style={styles.title}>{props.title}</Text>
                     </View>
-                    <View style={styles.avatarsContainer}>
-                        {props.avatars?.map((avatar, index) => (
+                    <View style={styles.bottomContent}>
+                        <View style={styles.locationContainer}>
                             <Image
-                                key={index}
-                                source={{ uri: avatar }}
-                                style={[
-                                    styles.avatar,
-                                    { 
-                                        marginLeft: index > 0 ? -12 : 0,
-                                        zIndex: (props.avatars?.length || 0) - index
-                                    }
-                                ]}
+                                source={require('@/assets/images/home/location_icon.png')}
+                                style={styles.locationIcon}
                             />
-                        ))}
+                            <Text style={styles.locationText}>{props.location}</Text>
+                        </View>
+                        <View style={styles.avatarsContainer}>
+                            {props.avatars?.map((avatar, index) => (
+                                <Image
+                                    key={index}
+                                    source={{ uri: avatar }}
+                                    style={[
+                                        styles.avatar,
+                                        {
+                                            marginLeft: index > 0 ? -12 : 0,
+                                            zIndex: (props.avatars?.length || 0) - index
+                                        }
+                                    ]}
+                                />
+                            ))}
+                        </View>
                     </View>
                 </View>
-            </View>
-        </ImageBackground>
-       </View>
+            </ImageBackground>
+        </View>
     );
 };
 
@@ -129,6 +129,10 @@ const TripCarousel = () => {
         }] : [])
     ];
 
+    const handleToMyTrip = () => {
+        router.push('/(app)/myTrip');
+    };
+
     return (
         <View style={styles.journeyMain}>
             <Carousel
@@ -138,7 +142,7 @@ const TripCarousel = () => {
                 vertical={false}
                 layoutCardOffset={55}
                 onScrollIndexChanged={handleIndexChanged}
-                renderItem={({item, index}) => (
+                renderItem={({ item, index }) => (
                     <Card
                         title={item.title}
                         location={'location' in item ? item.location : undefined}
@@ -152,9 +156,9 @@ const TripCarousel = () => {
                 itemWidth={dp2px(321)}
             />
             {activeIndex === displayItems.length - 1 && (
-                <View style={[styles.hintContainer, { right: dp2px(5) }]}>
-                    <Text style={styles.hintText}>进入我的行程</Text>
-                </View>
+                <TouchableOpacity style={[styles.hintContainer]} onPress={handleToMyTrip}>
+                        <Text style={styles.hintText}>进入我的行程</Text>
+                </TouchableOpacity>
             )}
         </View>
     );
@@ -236,26 +240,19 @@ const styles = createAdaptStyleSheet.create({
     },
     createCardOverlay: {
         position: 'absolute',
-        right: -dp2px(321),
+        right: -321,
         top: 0,
     },
     hintContainer: {
         position: 'absolute',
-        top: '50%',
-        transform: [{ translateY: -15 }],
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 12,
-        height: 30,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 15,
-        borderWidth: 1,
-        borderColor: '#E5F3FF',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
+        height: 318,
+        top: 5,
+        right: 10,
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        borderRadius: 16,
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 3,

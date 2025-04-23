@@ -1,6 +1,7 @@
 node_modules/
 .expo/
 dist/
+.yarn/
 npm-debug.*
 *.jks
 *.p8
@@ -17,3 +18,5 @@ web-build/
 
 expo-env.d.ts
 # @end expo-cli
+
+

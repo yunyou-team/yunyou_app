@@ -5,10 +5,11 @@ import { Image, ImageBackground, Text, View } from 'react-native';
 import GuideList from '../components/index/GuideList';
 import { createAdaptStyleSheet, storage } from '@/utils/index'
 import MyDrawerComponent from "../components/index/Menu";
-import { renderHeader } from "../components/index/HeadComponent";
+import { HeadComponent } from "../components/index/HeadComponent";
 import Primary from "@/components/Primary";
 import { useEffect, useState } from "react";
 import TripCarousel from "../components/index/TripCarousel";
+import { router } from "expo-router";
 
 export default function HomeScreen() {
   const [isLogin, setIsLogin] = useState(false)
@@ -21,20 +22,21 @@ export default function HomeScreen() {
     isLogin()
   }, [])
 
+
   return (
     <View style={{ flex: 1 }}>
-      {isLogin ? <ImageBackground source={require('@/assets/images/home/home_bg.png')}
+      <ImageBackground source={require('@/assets/images/home/home_bg.png')}
         style={{
           flex: 1,
         }}>
         <FocusAwareStatusBar />
-        {renderHeader()}
+        <HeadComponent></HeadComponent>
         <Image style={styles.journeyTitle} source={require('@/assets/images/journey-title.png')}></Image>
         <TripCarousel />
         <Image style={styles.guideTitle} source={require('@/assets/images/guide-title.png')}></Image>
         <GuideList></GuideList>
         {/* <MyDrawerComponent></MyDrawerComponent> */}
-      </ImageBackground> : <Primary />}
+      </ImageBackground>
     </View>
   );
 }
