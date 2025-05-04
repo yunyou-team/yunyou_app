@@ -7,9 +7,9 @@ import {
   Platform,
   SafeAreaView,
   StatusBarStyle,
-  ViewStyle,
+  TouchableOpacity,
 } from "react-native";
-import { useWindowDimensions } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { createAdaptStyleSheet } from "@/utils";
 
@@ -28,7 +28,7 @@ type StatusBarProps = {
   title: string;
   /** 是否显示返回图标 */
   showBack?: boolean;
-  /** 返回按钮点击事件 */
+  /** 返回按钮点击事件（默认使用导航返回） */
   onBackPress?: () => void;
 };
 
@@ -42,15 +42,23 @@ const StatusBar = ({
   showBack = true,
   onBackPress,
 }: StatusBarProps) => {
-  // 状态栏高度（Android特有处理）
+  const navigation = useNavigation();
   const statusBarHeight = Platform.select({
     android: translucent ? RNStatusBar.currentHeight : 0,
     ios: 0,
   });
 
+  // 处理返回逻辑
+  const handleBack = () => {
+    if (onBackPress) {
+      onBackPress();
+    } else if (navigation.canGoBack()) {
+      navigation.goBack();
+    }
+  };
+
   return (
     <>
-      {/* 系统状态栏 */}
       <RNStatusBar
         backgroundColor={translucent ? "transparent" : backgroundColor}
         barStyle={barStyle}
@@ -58,12 +66,10 @@ const StatusBar = ({
         translucent={translucent}
       />
 
-      {/* Android透明状态栏占位 */}
       {Platform.OS === "android" && translucent && (
         <View style={[styles.placeholder, { height: statusBarHeight }]} />
       )}
 
-      {/* 导航栏主体 */}
       <SafeAreaView
         style={[
           styles.navBar,
@@ -74,27 +80,33 @@ const StatusBar = ({
         <View style={styles.content}>
           {/* 左侧返回按钮 */}
           {showBack && (
-            <AntDesign
-              name="left"
-              size={24}
-              color={barStyle === "dark-content" ? "#000" : "#FFF"}
-              onPress={onBackPress}
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={handleBack}
               style={styles.backButton}
-            />
+            >
+              <AntDesign
+                name="left"
+                size={24}
+                color={barStyle === "dark-content" ? "#000" : "#FFF"}
+              />
+            </TouchableOpacity>
           )}
 
-          {/* 标题区域 */}
-          <Text
-            style={[
-              styles.title,
-              { color: barStyle === "dark-content" ? "#000" : "#FFF" },
-            ]}
-            numberOfLines={1}
-          >
-            {title}
-          </Text>
+          {/* 标题容器 */}
+          <View style={styles.titleContainer}>
+            <Text
+              style={[
+                styles.title,
+                { color: barStyle === "dark-content" ? "#000" : "#FFF" },
+              ]}
+              numberOfLines={1}
+            >
+              {title}
+            </Text>
+          </View>
 
-          {/* 右侧自定义内容 */}
+          {/* 右侧内容 */}
           <View style={styles.rightContent}>{children}</View>
         </View>
       </SafeAreaView>
@@ -109,8 +121,6 @@ const styles = createAdaptStyleSheet.create({
       ios: 44,
       android: 56,
     }),
-    alignItems: "center",
-    justifyContent: "center",
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "#CCCCCC",
   },
@@ -118,22 +128,28 @@ const styles = createAdaptStyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 16,
   },
+  titleContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: -1, // 确保点击穿透
+  },
   title: {
-    flex: 1,
     fontSize: 17,
     fontWeight: "600",
-    textAlign: "center",
-    marginHorizontal: 16,
+    maxWidth: "70%", // 防止过长标题溢出
   },
   backButton: {
     padding: 8,
+    zIndex: 1, // 确保按钮可点击
   },
   rightContent: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: "auto",
+    zIndex: 1,
   },
   placeholder: {
     position: "absolute",

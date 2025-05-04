@@ -1,57 +1,120 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   SafeAreaView,
   useWindowDimensions,
-  TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { createAdaptStyleSheet } from "@/utils";
 import { dp2px } from "@/utils/adaptScreen";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { TabView, SceneMap, TabBar, Route } from "react-native-tab-view";
 import AllTrip from "../components/myTrip/AllTrips";
 import HistoryTrip from "../components/myTrip/HistoryTrip";
 import StatusBar from "@/components/StatusBar";
+import { fetchMyTrip } from "@/services";
+import Error from "@/components/Error";
+import Empty from "@/components/Empty";
 
-const renderScene = SceneMap({
-  first: AllTrip,
-  second: HistoryTrip,
-});
+type TabRoute = Route & {
+  key: "first" | "second";
+  title: string;
+};
 
-const routes = [
+interface SceneProps {
+  route: TabRoute;
+  data?: ITrips[];
+  loading?: boolean;
+}
+
+const renderScene = ({ route, data, loading }: SceneProps) => {
+  const sceneProps = { data, loading };
+
+  switch (route.key) {
+    case "first":
+      return <AllTrip {...sceneProps} />;
+    case "second":
+      return <HistoryTrip {...sceneProps} />;
+    default:
+      return null;
+  }
+};
+
+const routes: TabRoute[] = [
   { key: "first", title: "当前行程" },
   { key: "second", title: "历史行程" },
 ];
 
 export default function MyTrip() {
   const layout = useWindowDimensions();
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<ITrips[] | null>(null);
 
-  // 自定义TabBar
-  const renderTabBar = (props) => (
-    <TabBar
-      {...props}
-      indicatorStyle={styles.indicator}
-      style={styles.tabBar}
-      labelStyle={styles.label}
-      activeColor="#000"
-      inactiveColor="#999"
-      pressOpacity={0.8}
-    />
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const result = await fetchMyTrip();
+      setData(result);
+    } catch (err: any) {
+      setError(err instanceof Error ? err.message : "未知错误");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const renderTabBar = (
+    props: React.ComponentProps<typeof TabBar<TabRoute>>
+  ) => (
+    <View>
+      <TabBar
+        {...props}
+        indicatorStyle={styles.indicator}
+        style={styles.tabBar}
+        activeColor="#000"
+        inactiveColor="#999"
+        pressOpacity={0.8}
+      />
+      {loading && (
+        <View style={styles.globalLoading}>
+          <ActivityIndicator size="small" color="#666" />
+        </View>
+      )}
+    </View>
   );
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar title={"我的行程"} />
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-        renderTabBar={renderTabBar}
-        // sceneContainerStyle={styles.sceneContainer}
-      />
+
+      {error ? (
+        <Error error={error} onPress={fetchData} />
+      ) : (
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={(props) => {
+            if (loading)
+              return (
+                <Empty iconName="hourglass-empty" text="正在加载行程..." />
+              );
+            if (!data?.length)
+              return (
+                <Empty iconName="travel-explore" text="暂无相关行程记录" />
+              );
+            return renderScene({ ...props, data, loading });
+          }}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+          renderTabBar={renderTabBar}
+          swipeEnabled={!loading}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -61,29 +124,20 @@ const styles = createAdaptStyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
-  sceneContainer: {
-    padding: dp2px(16),
-  },
   tabBar: {
     backgroundColor: "#FFF",
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: "#E0E0E0",
-    elevation: 0, // Android去除阴影
-    shadowOpacity: 0, // iOS去除阴影
+    elevation: 0,
+    shadowOpacity: 0,
   },
   indicator: {
     backgroundColor: "#000",
     height: 2,
   },
-  label: {
-    fontSize: dp2px(14),
-    fontWeight: "500",
-    textTransform: "none", // 去除默认大写转换
-  },
-  title: {
-    fontSize: dp2px(20),
-    fontWeight: "600",
-    color: "#333333",
-    marginBottom: dp2px(16),
+  globalLoading: {
+    position: "absolute",
+    right: dp2px(16),
+    top: dp2px(12),
   },
 });
