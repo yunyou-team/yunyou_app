@@ -12,6 +12,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { createAdaptStyleSheet } from "@/utils";
+import { router } from "expo-router";
 
 type StatusBarProps = {
   /** 状态栏背景色（Android/iOS） */
@@ -42,7 +43,6 @@ const StatusBar = ({
   showBack = true,
   onBackPress,
 }: StatusBarProps) => {
-  const navigation = useNavigation();
   const statusBarHeight = Platform.select({
     android: translucent ? RNStatusBar.currentHeight : 0,
     ios: 0,
@@ -52,8 +52,8 @@ const StatusBar = ({
   const handleBack = () => {
     if (onBackPress) {
       onBackPress();
-    } else if (navigation.canGoBack()) {
-      navigation.goBack();
+    } else if (router.back) {
+      router.back();
     }
   };
 
@@ -121,8 +121,6 @@ const styles = createAdaptStyleSheet.create({
       ios: 44,
       android: 56,
     }),
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#CCCCCC",
   },
   content: {
     flex: 1,

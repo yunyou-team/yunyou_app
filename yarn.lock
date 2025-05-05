@@ -10062,6 +10062,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-linear-gradient@npm:^2.8.3":
+  version: 2.8.3
+  resolution: "react-native-linear-gradient@npm:2.8.3"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/cd41bf28e9f468173f1e5e768685128ebf8bbf9077710e43b63482c1a76f37bff8ab3d1d6adfd7b4d54e648672356c02bea46c47cdbdb1844ebe5c5caf720114
+  languageName: node
+  linkType: hard
+
 "react-native-maps@npm:1.18.0":
   version: 1.18.0
   resolution: "react-native-maps@npm:1.18.0"
@@ -10157,19 +10167,6 @@ __metadata:
     react: ">=15.0.0"
     react-native: "*"
   checksum: 10c0/2e5c268bf8106abdae010c679b5b4a4f706c774e0c9874c51146d123574b2ac7b1bab2f757a0eac6c087caeca3610f5b32b8f4e3c9d64d528726ac51df8fbd58
-  languageName: node
-  linkType: hard
-
-"react-native-tab-view@npm:^4.0.11":
-  version: 4.0.11
-  resolution: "react-native-tab-view@npm:4.0.11"
-  dependencies:
-    use-latest-callback: "npm:^0.2.3"
-  peerDependencies:
-    react: ">= 18.2.0"
-    react-native: 0.79.2
-    react-native-pager-view: ">= 6.0.0"
-  checksum: 10c0/13ed26126ad2fb95089331c25e73e2d14ce73480087773bd443b267401e861717e7775a9eb5dbb3a3a4656ed1762ef75e2354f6960854ba3e86aadff904894cf
   languageName: node
   linkType: hard
 
@@ -11995,15 +11992,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-latest-callback@npm:^0.2.3":
-  version: 0.2.3
-  resolution: "use-latest-callback@npm:0.2.3"
-  peerDependencies:
-    react: ">=16.8"
-  checksum: 10c0/dc87503f6279ce2980f78e1019231ba20d7509e9d17adac05285babe4d6ba6f68c52f4ef7b5ad777cbc2af9fbaaa09d7adb664ca556da0aebab9f020022880be
-  languageName: node
-  linkType: hard
-
 "use-sync-external-store@npm:^1.2.2":
   version: 1.4.0
   resolution: "use-sync-external-store@npm:1.4.0"
@@ -12536,6 +12524,7 @@ __metadata:
     react-dom: "npm:18.3.1"
     react-native: "npm:0.76.7"
     react-native-gesture-handler: "npm:~2.20.2"
+    react-native-linear-gradient: "npm:^2.8.3"
     react-native-maps: "npm:1.18.0"
     react-native-pager-view: "npm:^6.7.1"
     react-native-reanimated: "npm:~3.16.1"
@@ -12543,7 +12532,6 @@ __metadata:
     react-native-screens: "npm:~4.4.0"
     react-native-snap-carousel: "npm:^3.9.1"
     react-native-snap-carousel-v4: "npm:^1.0.1"
-    react-native-tab-view: "npm:^4.0.11"
     react-native-toast-message: "npm:^2.3.0"
     react-native-web: "npm:~0.19.13"
     react-test-renderer: "npm:18.2.0"

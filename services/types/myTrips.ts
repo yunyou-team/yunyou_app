@@ -6,6 +6,8 @@ interface ITripItem {
   creatorId: number;
   createdAt: number;
   updatedAt: number;
+  tripStartTime: number;
+  tripEndTime: number;
 }
 
 interface IParticipants {

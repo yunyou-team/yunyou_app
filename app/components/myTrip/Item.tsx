@@ -1,31 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  ActivityIndicator,
+} from "react-native";
 import { createAdaptStyleSheet } from "@/utils";
 import { dp2px } from "@/utils/adaptScreen";
-
-const data = {
-  trip: {
-    tripId: 1,
-    tripName: "北京文化探索之旅",
-    location: ["北京", "济南"],
-    coverImage: null,
-    creatorId: 1,
-    createdAt: 1745224523599,
-    updatedAt: 1745509279373,
-  },
-  participants: [
-    {
-      uid: 1,
-      avatar:
-        "https://sns-avatar-qc.xhscdn.com/avatar/1040g2jo31f11btv1ma004a6tvr94m1oa9era6v8",
-    },
-    {
-      uid: 2,
-      avatar:
-        "https://sns-avatar-qc.xhscdn.com/avatar/64b6336fcc3d475a91100a0c.jpg",
-    },
-  ],
-};
+import Octicons from "@expo/vector-icons/Octicons";
 
 const formatDate = (timestamp: number) => {
   const date = new Date(timestamp);
@@ -34,15 +18,36 @@ const formatDate = (timestamp: number) => {
     .padStart(2, "0")}.${date.getDate().toString().padStart(2, "0")}`;
 };
 
-export default function TripItem() {
+type TripItemProps = {
+  data: ITrips;
+  size?: "large" | "default";
+};
+
+const screenWidth = Dimensions.get("window").width;
+
+export default function TripItem({ data, size = "default" }: TripItemProps) {
   const { trip, participants } = data;
+  const [imageError, setImageError] = React.useState(false);
 
   return (
     <View style={styles.container}>
-      {/* 左侧图片容器 */}
-      <View style={styles.imageContainer}>
-        {trip.coverImage ? (
-          <Image source={{ uri: trip.coverImage }} style={styles.image} />
+      {/* 图片容器 */}
+      <View
+        style={[
+          styles.imageContainer,
+          size === "large" && styles.largeImageContainer,
+        ]}
+      >
+        {/* 灰色兜底背景 */}
+        <View style={styles.imageFallback} />
+
+        {/* 图片内容 */}
+        {trip.coverImage && !imageError ? (
+          <Image
+            source={{ uri: trip.coverImage }}
+            style={styles.image}
+            onError={() => setImageError(true)}
+          />
         ) : (
           <View style={styles.imagePlaceholder}>
             <Text style={styles.placeholderText}>行程封面</Text>
@@ -50,36 +55,68 @@ export default function TripItem() {
         )}
       </View>
 
-      {/* 右侧信息容器 */}
+      {/* 信息容器 */}
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>{trip.tripName}</Text>
-
-        <Text style={styles.location}>{trip.location.join(" → ")}</Text>
-
-        <Text style={styles.metaText}>添加了{trip.location.length}个地点</Text>
-
-        <Text style={styles.metaText}>
-          {formatDate(trip.createdAt)} - {formatDate(trip.updatedAt)}
+        {/* 标题 */}
+        <Text style={[styles.title, size === "large" && styles.largeTitle]}>
+          {trip.tripName}
         </Text>
 
-        {/* 参与者头像容器 */}
+        {/* 地点信息 */}
+        <View style={styles.locationContainer}>
+          <Octicons name="location" size={dp2px(12)} color="#9c9c9c" />
+          <Text style={styles.location} numberOfLines={1} ellipsizeMode="tail">
+            {trip.location[trip.location?.length - 1]}
+          </Text>
+          <Text style={styles.locationText}>
+            | 共添加{trip.location.length}个地点
+          </Text>
+        </View>
+
+        {/* 时间信息 */}
+        <View style={styles.metaContainer}>
+          <Octicons name="clock" size={dp2px(12)} color="#9c9c9c" />
+          <Text style={styles.timeText}>
+            {formatDate(trip.tripStartTime)} - {formatDate(trip.tripEndTime)}
+          </Text>
+        </View>
+
+        {/* 参与者 */}
         <View style={styles.avatarsContainer}>
-          {participants.map((user, index) => (
-            <Image
-              key={user.uid}
-              source={{ uri: user.avatar }}
+          {participants
+            .slice(0, size === "default" ? 3 : 4)
+            .map((user, index) => (
+              <Image
+                key={user.uid}
+                source={{ uri: user.avatar }}
+                style={[
+                  styles.avatar,
+                  {
+                    marginLeft: index > 0 ? dp2px(-10) : 0,
+                    ...(size === "large" && styles.largeAvatar),
+                  },
+                ]}
+              />
+            ))}
+          {participants.length > (size === "default" ? 3 : 4) && (
+            <View
               style={[
-                styles.avatar,
-                { marginLeft: index > 0 ? dp2px(-10) : 0 },
+                styles.moreAvatar,
+                size === "large" && styles.largeMoreAvatar,
               ]}
-            />
-          ))}
-          {participants.length > 3 && (
-            <View style={styles.moreAvatar}>
-              <Text style={styles.moreText}>+{participants.length - 3}</Text>
+            >
+              <Text style={styles.moreText}>
+                +{participants.length - (size === "default" ? 3 : 4)}
+              </Text>
             </View>
           )}
         </View>
+
+        {/* 编辑按钮 */}
+        <Image
+          source={require("@/assets/images/myTrip/pencil-line.png")}
+          style={[styles.editIcon, size === "large" && styles.largeEditIcon]}
+        />
       </View>
     </View>
   );
@@ -88,51 +125,88 @@ export default function TripItem() {
 const styles = createAdaptStyleSheet.create({
   container: {
     flexDirection: "row",
-    padding: dp2px(16),
-    backgroundColor: "#FFFFFF",
     borderRadius: dp2px(8),
     marginVertical: dp2px(8),
+    // backgroundColor: "#FFF",
   },
   imageContainer: {
-    width: dp2px(99),
-    height: dp2px(123),
+    width: dp2px(88),
+    height: dp2px(88),
     borderRadius: dp2px(8),
     overflow: "hidden",
     marginRight: dp2px(12),
+    position: "relative",
+  },
+  largeImageContainer: {
+    width: dp2px(99),
+    height: dp2px(123),
+    overflow: "hidden",
+    position: "relative",
+  },
+  imageFallback: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "#F0F0F0",
+    zIndex: 1,
   },
   image: {
     width: "100%",
     height: "100%",
+    position: "relative",
+    zIndex: 2,
   },
   imagePlaceholder: {
-    flex: 1,
-    backgroundColor: "#F0F0F0",
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(240,240,240,0.8)",
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 3,
   },
   placeholderText: {
     color: "#999",
     fontSize: dp2px(12),
+    fontWeight: "500",
   },
   infoContainer: {
     flex: 1,
     justifyContent: "space-between",
+    position: "relative",
   },
   title: {
     fontSize: dp2px(16),
     fontWeight: "600",
     color: "#333",
-    marginBottom: dp2px(4),
+    marginBottom: dp2px(6),
+  },
+  largeTitle: {
+    fontSize: dp2px(18),
+    marginBottom: dp2px(8),
+  },
+  locationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: dp2px(6),
+    maxWidth: "100%",
   },
   location: {
-    fontSize: dp2px(14),
-    color: "#666",
-    marginBottom: dp2px(4),
-  },
-  metaText: {
     fontSize: dp2px(12),
-    color: "#999",
-    marginBottom: dp2px(4),
+    color: "#9c9c9c",
+    marginHorizontal: dp2px(4),
+    maxWidth: "60%",
+  },
+  locationText: {
+    fontSize: dp2px(12),
+    color: "#9c9c9c",
+    flexShrink: 0,
+  },
+  metaContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: dp2px(6),
+  },
+  timeText: {
+    fontSize: dp2px(12),
+    color: "#9c9c9c",
+    marginLeft: dp2px(4),
   },
   avatarsContainer: {
     flexDirection: "row",
@@ -146,17 +220,38 @@ const styles = createAdaptStyleSheet.create({
     borderWidth: dp2px(1),
     borderColor: "#FFF",
   },
+  largeAvatar: {
+    width: dp2px(28),
+    height: dp2px(28),
+  },
   moreAvatar: {
     width: dp2px(24),
     height: dp2px(24),
     borderRadius: dp2px(12),
-    backgroundColor: "#CCCCCC",
+    backgroundColor: "rgba(0,0,0,0.4)",
     justifyContent: "center",
     alignItems: "center",
     marginLeft: dp2px(-10),
   },
+  largeMoreAvatar: {
+    width: dp2px(28),
+    height: dp2px(28),
+  },
   moreText: {
     fontSize: dp2px(12),
     color: "#FFF",
+    fontWeight: "500",
+  },
+  editIcon: {
+    position: "absolute",
+    top: "50%",
+    right: 0,
+    transform: [{ translateY: "-50%" }],
+    width: dp2px(16),
+    height: dp2px(16),
+  },
+  largeEditIcon: {
+    width: dp2px(20),
+    height: dp2px(20),
   },
 });

@@ -1,65 +1,46 @@
 import React, { useEffect, useState } from "react";
 import {
-  View,
   StyleSheet,
   SafeAreaView,
   useWindowDimensions,
-  ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { createAdaptStyleSheet } from "@/utils";
 import { dp2px } from "@/utils/adaptScreen";
-import { TabView, SceneMap, TabBar, Route } from "react-native-tab-view";
 import AllTrip from "../components/myTrip/AllTrips";
-import HistoryTrip from "../components/myTrip/HistoryTrip";
 import StatusBar from "@/components/StatusBar";
 import { fetchMyTrip } from "@/services";
 import Error from "@/components/Error";
+import Trips from "../components/myTrip/Trips";
+import Tabs from "@/components/Tabs";
 import Empty from "@/components/Empty";
+import { router } from "expo-router";
 
-type TabRoute = Route & {
-  key: "first" | "second";
+type TabRoute = {
+  key: "first" | "second" | "third" | "fourth";
   title: string;
 };
 
-interface SceneProps {
-  route: TabRoute;
-  data?: ITrips[];
-  loading?: boolean;
-}
-
-const renderScene = ({ route, data, loading }: SceneProps) => {
-  const sceneProps = { data, loading };
-
-  switch (route.key) {
-    case "first":
-      return <AllTrip {...sceneProps} />;
-    case "second":
-      return <HistoryTrip {...sceneProps} />;
-    default:
-      return null;
-  }
-};
-
 const routes: TabRoute[] = [
-  { key: "first", title: "当前行程" },
-  { key: "second", title: "历史行程" },
+  { key: "first", title: "全部行程" },
+  { key: "second", title: "待出行" },
+  { key: "third", title: "已出行" },
 ];
 
 export default function MyTrip() {
-  const layout = useWindowDimensions();
-  const [index, setIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<ITrips[] | null>(null);
+  const [trips, setTrips] = useState<ITrips[] | null>(null);
 
   const fetchData = async () => {
     try {
       setLoading(true);
       setError(null);
       const result = await fetchMyTrip();
-      setData(result);
+      setTrips(result);
     } catch (err: any) {
-      setError(err instanceof Error ? err.message : "未知错误");
+      setError(err?.message || "未知错误");
     } finally {
       setLoading(false);
     }
@@ -69,71 +50,101 @@ export default function MyTrip() {
     fetchData();
   }, []);
 
-  const renderTabBar = (
-    props: React.ComponentProps<typeof TabBar<TabRoute>>
-  ) => (
-    <View>
-      <TabBar
-        {...props}
-        indicatorStyle={styles.indicator}
-        style={styles.tabBar}
-        activeColor="#000"
-        inactiveColor="#999"
-        pressOpacity={0.8}
-      />
-      {loading && (
-        <View style={styles.globalLoading}>
-          <ActivityIndicator size="small" color="#666" />
-        </View>
-      )}
-    </View>
-  );
+  const getSortedTrips = () => {
+    if (!trips)
+      return {
+        upcomingTrips: [],
+        historyTrips: [],
+        recentTrip: undefined,
+        pastTrips: [],
+      };
+    const now = new Date();
+
+    const upcomingTrips = trips.filter(
+      (trip) => trip.trip.tripStartTime > now.getTime()
+    );
+    const historyTrips = trips.filter(
+      (trip) => trip.trip.tripEndTime < now.getTime()
+    );
+    const pastTrips = trips.filter(
+      (trip) => trip.trip.tripStartTime < now.getTime()
+    );
+
+    const recentTrip = trips.reduce(
+      (prev: ITrips | undefined, current: ITrips) => {
+        return prev && prev.trip.updatedAt > current.trip.updatedAt
+          ? prev
+          : current;
+      },
+      undefined
+    );
+
+    return { upcomingTrips, historyTrips, recentTrip, pastTrips };
+  };
+
+  const { upcomingTrips, historyTrips, recentTrip, pastTrips } =
+    getSortedTrips();
+
+  const onBackPress = () => {
+    router.back();
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar title={"我的行程"} />
+    <>
+      <ImageBackground
+        source={require("@/assets/images/myTrip/trip_bg.png")}
+        style={styles.background}
+      >
+        <SafeAreaView style={styles.container}>
+          <StatusBar
+            title={"我的行程"}
+            backgroundColor="transparent"
+            onBackPress={onBackPress}
+          />
 
-      {error ? (
-        <Error error={error} onPress={fetchData} />
-      ) : (
-        <TabView
-          navigationState={{ index, routes }}
-          renderScene={(props) => {
-            if (loading)
-              return (
-                <Empty iconName="hourglass-empty" text="正在加载行程..." />
-              );
-            if (!data?.length)
-              return (
-                <Empty iconName="travel-explore" text="暂无相关行程记录" />
-              );
-            return renderScene({ ...props, data, loading });
-          }}
-          onIndexChange={setIndex}
-          initialLayout={{ width: layout.width }}
-          renderTabBar={renderTabBar}
-          swipeEnabled={!loading}
-        />
-      )}
-    </SafeAreaView>
+          {error ? (
+            <Error error={error} onPress={fetchData} />
+          ) : loading ? (
+            <Empty iconName="hourglass-empty" text="正在加载行程..." />
+          ) : (
+            <Tabs tabs={routes} activeIndex={activeTab} onChange={setActiveTab}>
+              <AllTrip recentTrip={recentTrip} historyTrips={historyTrips} />
+              <Trips data={upcomingTrips} />
+              <Trips data={pastTrips} />
+            </Tabs>
+          )}
+        </SafeAreaView>
+      </ImageBackground>
+    </>
   );
 }
 
 const styles = createAdaptStyleSheet.create({
+  background: {
+    width: "100%",
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "transparent",
   },
   tabBar: {
-    backgroundColor: "#FFF",
+    backgroundColor: "transparent",
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: "#E0E0E0",
+    borderTopColor: "transparent",
     elevation: 0,
     shadowOpacity: 0,
+    justifyContent: "center",
+    position: "relative",
   },
   indicator: {
     backgroundColor: "#000",
     height: 2,
+    position: "absolute",
+    left: "50%",
+    marginLeft: -10,
+    width: 20,
+    transform: [{ translateX: -10 }],
   },
   globalLoading: {
     position: "absolute",
