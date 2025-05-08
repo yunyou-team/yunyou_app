@@ -3,9 +3,7 @@ import { domain } from "../constants/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const config: AxiosRequestConfig = {
-  //   baseURL: `${domain}/rest`,
-  // TODO mock接口中并没有写上rest，这个需要和后端商量下
-  baseURL: `${domain}`,
+  baseURL: `${domain}/rest`,
   validateStatus: (status) => status >= 200 && status < 300,
   timeout: 1e4,
   headers: {

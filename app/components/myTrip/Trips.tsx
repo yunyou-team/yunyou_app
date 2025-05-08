@@ -1,9 +1,9 @@
 import React from "react";
 import { View, useWindowDimensions } from "react-native";
 import { createAdaptStyleSheet } from "@/utils";
-import { dp2px } from "@/utils/adaptScreen";
 import TripItem from "./Item";
 import Empty from "@/components/Empty";
+import { ITrips } from "@/services/myTrip";
 
 export default function Trips({ data }: { data: ITrips[] }) {
   const layout = useWindowDimensions();
@@ -18,7 +18,7 @@ export default function Trips({ data }: { data: ITrips[] }) {
         <View style={styles.container}>
           <View style={styles.items}>
             {data.map((tripData, index) => (
-              <View style={styles.item}>
+              <View style={styles.item} key={index}>
                 <TripItem key={index} data={tripData} />
               </View>
             ))}
@@ -31,23 +31,23 @@ export default function Trips({ data }: { data: ITrips[] }) {
 
 const styles = createAdaptStyleSheet.create({
   container: {
-    paddingTop: dp2px(16),
-    paddingHorizontal: dp2px(19),
+    paddingTop: 16,
+    paddingHorizontal: 19,
   },
   title: {
-    fontSize: dp2px(20),
+    fontSize: 20,
     fontWeight: "600",
     color: "#333333",
-    marginBottom: dp2px(16),
+    marginBottom: 16,
   },
   items: {
     backgroundColor: "#FFFFFF",
     borderRadius: 16,
-    paddingHorizontal: dp2px(16),
-    // paddingVertical: dp2px(16),
+    paddingHorizontal: 16,
+    // paddingVertical: 16,
   },
   item: {
-    paddingVertical: dp2px(17),
+    paddingVertical: 17,
     // marginTop:
   },
 });

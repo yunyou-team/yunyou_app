@@ -1,3 +1,5 @@
+import request from "@/utils/request";
+
 interface ITripItem {
   tripId: number;
   tripName: string;
@@ -15,7 +17,12 @@ interface IParticipants {
   avatar: string;
 }
 
-interface ITrips {
+export interface ITrips {
   trip: ITripItem;
   participants: IParticipants[];
+}
+
+export async function fetchMyTrip(): Promise<ITrips[]> {
+  const { data } = await request.post<ITrips[]>("/trips/user", {});
+  return data;
 }

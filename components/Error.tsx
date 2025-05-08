@@ -58,23 +58,23 @@ const styles = createAdaptStyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: dp2px(20),
+    padding: 20,
   },
   errorText: {
-    fontSize: dp2px(14),
+    fontSize: 14,
     color: "#ff4444",
-    marginVertical: dp2px(16),
+    marginVertical: 16,
     textAlign: "center",
   },
   retryButton: {
     backgroundColor: "#f0f0f0",
-    paddingHorizontal: dp2px(24),
-    paddingVertical: dp2px(8),
-    borderRadius: dp2px(20),
+    paddingHorizontal: 24,
+    paddingVertical: 8,
+    borderRadius: 20,
   },
   retryText: {
     color: "#666",
-    fontSize: dp2px(14),
+    fontSize: 14,
   },
 });
 

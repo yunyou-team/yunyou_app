@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  SafeAreaView,
-  useWindowDimensions,
-  ImageBackground,
-} from "react-native";
+import { StyleSheet, SafeAreaView, ImageBackground } from "react-native";
 import { createAdaptStyleSheet } from "@/utils";
 import { dp2px } from "@/utils/adaptScreen";
 import AllTrip from "../components/myTrip/AllTrips";
 import StatusBar from "@/components/StatusBar";
-import { fetchMyTrip } from "@/services";
 import Error from "@/components/Error";
 import Trips from "../components/myTrip/Trips";
 import Tabs from "@/components/Tabs";
 import Empty from "@/components/Empty";
 import { router } from "expo-router";
+import { fetchMyTrip, ITrips } from "@/services/myTrip";
 
 type TabRoute = {
   key: "first" | "second" | "third" | "fourth";
@@ -148,7 +143,7 @@ const styles = createAdaptStyleSheet.create({
   },
   globalLoading: {
     position: "absolute",
-    right: dp2px(16),
-    top: dp2px(12),
+    right: 16,
+    top: 12,
   },
 });

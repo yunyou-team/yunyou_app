@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Dimensions,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { createAdaptStyleSheet } from "@/utils";
 import { dp2px } from "@/utils/adaptScreen";
 import Octicons from "@expo/vector-icons/Octicons";
+import { ITrips } from "@/services/myTrip";
 
 const formatDate = (timestamp: number) => {
   const date = new Date(timestamp);
@@ -87,7 +81,7 @@ export default function TripItem({ data, size = "default" }: TripItemProps) {
             .slice(0, size === "default" ? 3 : 4)
             .map((user, index) => (
               <Image
-                key={user.uid}
+                key={index}
                 source={{ uri: user.avatar }}
                 style={[
                   styles.avatar,
@@ -125,21 +119,21 @@ export default function TripItem({ data, size = "default" }: TripItemProps) {
 const styles = createAdaptStyleSheet.create({
   container: {
     flexDirection: "row",
-    borderRadius: dp2px(8),
-    marginVertical: dp2px(8),
+    borderRadius: 8,
+    marginVertical: 8,
     // backgroundColor: "#FFF",
   },
   imageContainer: {
-    width: dp2px(88),
-    height: dp2px(88),
-    borderRadius: dp2px(8),
+    width: 88,
+    height: 88,
+    borderRadius: 8,
     overflow: "hidden",
-    marginRight: dp2px(12),
+    marginRight: 12,
     position: "relative",
   },
   largeImageContainer: {
-    width: dp2px(99),
-    height: dp2px(123),
+    width: 99,
+    height: 123,
     overflow: "hidden",
     position: "relative",
   },
@@ -163,7 +157,7 @@ const styles = createAdaptStyleSheet.create({
   },
   placeholderText: {
     color: "#999",
-    fontSize: dp2px(12),
+    fontSize: 12,
     fontWeight: "500",
   },
   infoContainer: {
@@ -172,73 +166,73 @@ const styles = createAdaptStyleSheet.create({
     position: "relative",
   },
   title: {
-    fontSize: dp2px(16),
+    fontSize: 16,
     fontWeight: "600",
     color: "#333",
-    marginBottom: dp2px(6),
+    marginBottom: 6,
   },
   largeTitle: {
-    fontSize: dp2px(18),
-    marginBottom: dp2px(8),
+    fontSize: 18,
+    marginBottom: 8,
   },
   locationContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: dp2px(6),
+    marginBottom: 6,
     maxWidth: "100%",
   },
   location: {
-    fontSize: dp2px(12),
+    fontSize: 12,
     color: "#9c9c9c",
-    marginHorizontal: dp2px(4),
+    marginHorizontal: 4,
     maxWidth: "60%",
   },
   locationText: {
-    fontSize: dp2px(12),
+    fontSize: 12,
     color: "#9c9c9c",
     flexShrink: 0,
   },
   metaContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: dp2px(6),
+    marginBottom: 6,
   },
   timeText: {
-    fontSize: dp2px(12),
+    fontSize: 12,
     color: "#9c9c9c",
-    marginLeft: dp2px(4),
+    marginLeft: 4,
   },
   avatarsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: dp2px(8),
+    marginTop: 8,
   },
   avatar: {
-    width: dp2px(24),
-    height: dp2px(24),
-    borderRadius: dp2px(12),
-    borderWidth: dp2px(1),
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 1,
     borderColor: "#FFF",
   },
   largeAvatar: {
-    width: dp2px(28),
-    height: dp2px(28),
+    width: 28,
+    height: 28,
   },
   moreAvatar: {
-    width: dp2px(24),
-    height: dp2px(24),
-    borderRadius: dp2px(12),
+    width: 24,
+    height: 24,
+    borderRadius: 12,
     backgroundColor: "rgba(0,0,0,0.4)",
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: dp2px(-10),
+    marginLeft: -10,
   },
   largeMoreAvatar: {
-    width: dp2px(28),
-    height: dp2px(28),
+    width: 28,
+    height: 28,
   },
   moreText: {
-    fontSize: dp2px(12),
+    fontSize: 12,
     color: "#FFF",
     fontWeight: "500",
   },
@@ -247,11 +241,11 @@ const styles = createAdaptStyleSheet.create({
     top: "50%",
     right: 0,
     transform: [{ translateY: "-50%" }],
-    width: dp2px(16),
-    height: dp2px(16),
+    width: 16,
+    height: 16,
   },
   largeEditIcon: {
-    width: dp2px(20),
-    height: dp2px(20),
+    width: 20,
+    height: 20,
   },
 });

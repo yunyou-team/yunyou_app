@@ -39,12 +39,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: dp2px(40),
+    padding: 40,
   },
   text: {
-    fontSize: dp2px(14),
+    fontSize: 14,
     color: "#999",
-    marginTop: dp2px(16),
+    marginTop: 16,
   },
 });
 
