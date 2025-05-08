@@ -4231,6 +4231,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^1.8.4":
+  version: 1.9.0
+  resolution: "axios@npm:1.9.0"
+  dependencies:
+    follow-redirects: "npm:^1.15.6"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 10c0/9371a56886c2e43e4ff5647b5c2c3c046ed0a3d13482ef1d0135b994a628c41fbad459796f101c655e62f0c161d03883454474d2e435b2e021b1924d9f24994c
+  languageName: node
+  linkType: hard
+
 "babel-core@npm:^7.0.0-bridge.0":
   version: 7.0.0-bridge.0
   resolution: "babel-core@npm:7.0.0-bridge.0"
@@ -6268,6 +6279,16 @@ __metadata:
   version: 0.242.1
   resolution: "flow-parser@npm:0.242.1"
   checksum: 10c0/7aaf2f0e6b4bfa78bd3f8981de1063a23810aa8d32f6dbe20d429a787e4e4ab0fbc2b43790b50138cb294b2ca9dc3309ad22b41f8f4102ea047007bb1e5ca353
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.6":
+  version: 1.15.9
+  resolution: "follow-redirects@npm:1.15.9"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 10c0/5829165bd112c3c0e82be6c15b1a58fa9dcfaede3b3c54697a82fe4a62dd5ae5e8222956b448d2f98e331525f05d00404aba7d696de9e761ef6e42fdc780244f
   languageName: node
   linkType: hard
 
@@ -9798,6 +9819,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: 10c0/fe7dd8b1bdbbbea18d1459107729c3e4a2243ca870d26d34c2c1bcd3e4425b7bcc5112362df2d93cc7fb9746f6142b5e272fd1cc5c86ddf8580175186f6ad42b
+  languageName: node
+  linkType: hard
+
 "psl@npm:^1.1.33":
   version: 1.9.0
   resolution: "psl@npm:1.9.0"
@@ -10034,6 +10062,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-linear-gradient@npm:^2.8.3":
+  version: 2.8.3
+  resolution: "react-native-linear-gradient@npm:2.8.3"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/cd41bf28e9f468173f1e5e768685128ebf8bbf9077710e43b63482c1a76f37bff8ab3d1d6adfd7b4d54e648672356c02bea46c47cdbdb1844ebe5c5caf720114
+  languageName: node
+  linkType: hard
+
 "react-native-maps@npm:1.18.0":
   version: 1.18.0
   resolution: "react-native-maps@npm:1.18.0"
@@ -10047,6 +10085,16 @@ __metadata:
     react-native-web:
       optional: true
   checksum: 10c0/b3b2dc8028915f0bf7494149eb2822ace220f6d2c19767ac2566ed14f6c69b6cc576f95151f0a7696d968291c7351f6d36233a73930a5f4696fe240ec3dfa862
+  languageName: node
+  linkType: hard
+
+"react-native-pager-view@npm:^6.7.1":
+  version: 6.7.1
+  resolution: "react-native-pager-view@npm:6.7.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/1459f3c487d50b1ecba41a4b24c51ab9ad17026b30e66c109dd1df32afe7cc6726d8fcae8a3495f93a240e5781bbae7653c7d56d53e724e929312b30234616e9
   languageName: node
   linkType: hard
 
@@ -10119,6 +10167,16 @@ __metadata:
     react: ">=15.0.0"
     react-native: "*"
   checksum: 10c0/2e5c268bf8106abdae010c679b5b4a4f706c774e0c9874c51146d123574b2ac7b1bab2f757a0eac6c087caeca3610f5b32b8f4e3c9d64d528726ac51df8fbd58
+  languageName: node
+  linkType: hard
+
+"react-native-toast-message@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "react-native-toast-message@npm:2.3.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/84a4ed66108c7517cfa2e06d6a8a65933ad37d0f21a1ba5674658ad2c8d95a3035c1c7f99e191568d7c5d5328f5aa048e32170b393a90ada2b2bb602f9878d45
   languageName: node
   linkType: hard
 
@@ -12448,6 +12506,7 @@ __metadata:
     "@types/react": "npm:~18.3.12"
     "@types/react-native-snap-carousel": "npm:^3.8.11"
     "@types/react-test-renderer": "npm:^18.0.7"
+    axios: "npm:^1.8.4"
     expo: "npm:^52.0.38"
     expo-constants: "npm:~17.0.8"
     expo-font: "npm:~13.0.4"
@@ -12465,12 +12524,15 @@ __metadata:
     react-dom: "npm:18.3.1"
     react-native: "npm:0.76.7"
     react-native-gesture-handler: "npm:~2.20.2"
+    react-native-linear-gradient: "npm:^2.8.3"
     react-native-maps: "npm:1.18.0"
+    react-native-pager-view: "npm:^6.7.1"
     react-native-reanimated: "npm:~3.16.1"
     react-native-safe-area-context: "npm:4.12.0"
     react-native-screens: "npm:~4.4.0"
     react-native-snap-carousel: "npm:^3.9.1"
     react-native-snap-carousel-v4: "npm:^1.0.1"
+    react-native-toast-message: "npm:^2.3.0"
     react-native-web: "npm:~0.19.13"
     react-test-renderer: "npm:18.2.0"
     typescript: "npm:~5.3.3"

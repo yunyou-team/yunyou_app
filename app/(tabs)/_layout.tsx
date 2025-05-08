@@ -1,8 +1,8 @@
-import AddPlanButton from '@/components/AddPlanButton';
-import { storage } from '@/utils';
-import { Tabs, Redirect } from 'expo-router';
-import { ReactElement, useEffect, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import AddPlanButton from "@/components/AddPlanButton";
+import { storage } from "@/utils";
+import { Tabs, Redirect } from "expo-router";
+import { ReactElement, useEffect, useState } from "react";
+import { Image, StyleSheet, View } from "react-native";
 
 function mackTabItem(comp: ReactElement, focused: boolean) {
   return (
@@ -10,7 +10,7 @@ function mackTabItem(comp: ReactElement, focused: boolean) {
       {comp}
       {focused && <View style={styles.tabItemDot} />}
     </View>
-  )
+  );
 }
 
 export default function TabLayout() {
@@ -22,10 +22,10 @@ export default function TabLayout() {
 
   const checkLoginStatus = async () => {
     try {
-      const cookie = await storage.get('cookie');
+      const cookie = await storage.get("cookie");
       setIsLoggedIn(!!cookie);
     } catch (error) {
-      console.error('Error checking login status:', error);
+      console.error("Error checking login status:", error);
       setIsLoggedIn(false);
     }
   };
@@ -58,25 +58,39 @@ export default function TabLayout() {
           tabBarIcon: () => <AddPlanButton />,
           tabBarItemStyle: {
             flex: 2,
-          }
+          },
         }}
       />
       <Tabs.Screen
         name="aiSelect"
         options={{
-          tabBarIcon: ({ focused }) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/ai-link.png')} />, focused),
+          tabBarIcon: ({ focused }) =>
+            mackTabItem(
+              <Image
+                style={styles.icon}
+                source={require("@/assets/images/ai-link.png")}
+              />,
+              focused
+            ),
           tabBarItemStyle: {
             flex: 1,
-          }
+          },
         }}
       />
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({ focused }) => mackTabItem(<Image style={styles.icon} source={require('@/assets/images/home.png')} />, focused),
+          tabBarIcon: ({ focused }) =>
+            mackTabItem(
+              <Image
+                style={styles.icon}
+                source={require("@/assets/images/home.png")}
+              />,
+              focused
+            ),
           tabBarItemStyle: {
             flex: 1,
-          }
+          },
         }}
       />
     </Tabs>
@@ -85,22 +99,22 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabItemContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   tabItemDot: {
     width: 4,
     height: 4,
     borderRadius: 24,
-    backgroundColor: '#275b51',
-    marginTop: 4
+    backgroundColor: "#275b51",
+    marginTop: 4,
   },
   icon: {
     width: 32,
     height: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 32
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 32,
   },
-})
+});
