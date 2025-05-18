@@ -6,6 +6,7 @@ import {
   PanResponder,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from 'react-native'
 import { createAdaptStyleSheet } from '@/utils/index'
 import CloseIcon from '@/components/icons/CloseIcon'
@@ -30,7 +31,6 @@ interface BottomPopupProps {
 }
 
 /**
- * 底部弹出窗口组件
  * 支持拖拽调整高度，自动吸附到预设高度点
  * 可通过拖拽或关闭按钮关闭
  */
@@ -46,13 +46,11 @@ export const BottomPopup = ({
 }: BottomPopupProps) => {
   // 弹窗高度动画值，默认为屏幕高度的70%
   const heightAnim = useRef(new Animated.Value(SCREEN_HEIGHT * 0.7)).current
-  // 拖动时的临时位移动画值
-  const translateY = useRef(new Animated.Value(0)).current
-  // 记录拖动开始时的位置
-  const dragStartY = useRef(0)
+  const popupTranslateY = useRef(new Animated.Value(SCREEN_HEIGHT)).current
 
-  // 用于追踪当前弹窗高度
+  // 追踪当前弹窗高度
   const [currentHeight, setCurrentHeight] = useState(SCREEN_HEIGHT * 0.7)
+  const [shouldRender, setShouldRender] = useState(visible)
 
   // 监听高度动画值变化
   useEffect(() => {
@@ -64,11 +62,24 @@ export const BottomPopup = ({
     }
   }, [])
 
-  // 弹窗关闭时重置状态
+  // 弹窗消失和打开的动画
   useEffect(() => {
-    if (!visible) {
-      heightAnim.setValue(SCREEN_HEIGHT * 0.7)
-      translateY.setValue(0)
+    if (visible) {
+      setShouldRender(true)
+      Animated.timing(popupTranslateY, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: false,
+      }).start()
+    } else {
+      Animated.timing(popupTranslateY, {
+        toValue: SCREEN_HEIGHT,
+        duration: 500,
+        useNativeDriver: false,
+      }).start(() => {
+        setShouldRender(false)
+        heightAnim.setValue(SCREEN_HEIGHT * 0.7)
+      })
     }
   }, [visible])
 
@@ -78,20 +89,13 @@ export const BottomPopup = ({
    * @returns 最近的锚点高度
    */
   const findNearestSnapHeight = (height: number) => {
-    const points = SNAP_POINTS.map((point) => SCREEN_HEIGHT * point)
-    let nearest = points[0]
-    let minDistance = Math.abs(height - points[0])
-    for (const point of points) {
-      const distance = Math.abs(height - point)
-      if (distance < minDistance) {
-        minDistance = distance
-        nearest = point
-      }
-    }
-    return nearest
+    const points = SNAP_POINTS.map((p) => SCREEN_HEIGHT * p)
+    return points.reduce((prev, curr) =>
+      Math.abs(curr - height) < Math.abs(prev - height) ? curr : prev
+    )
   }
 
-  // 手势响应处理
+  const dragStartHeight = useRef(SCREEN_HEIGHT * 0.7)
   const panResponder = useRef(
     PanResponder.create({
       // 是否响应手势
@@ -99,64 +103,34 @@ export const BottomPopup = ({
 
       // 手势开始时的处理
       onPanResponderGrant: () => {
-        dragStartY.current = 0
-        translateY.setValue(0)
+        dragStartHeight.current = currentHeight // 锁定拖动起始高度
       },
 
       // 手势移动时的处理
       onPanResponderMove: (_, gestureState) => {
-        // 计算新的位移值
-        let newTranslateY = gestureState.dy
-
-        // 限制向上拖动，不超过屏幕高度
-        if (currentHeight - newTranslateY > SCREEN_HEIGHT) {
-          newTranslateY = currentHeight - SCREEN_HEIGHT
-        }
-
-        // 限制向下拖动，不小于0
-        if (currentHeight - newTranslateY < 0) {
-          newTranslateY = currentHeight
-        }
-
-        // 更新位移动画值
-        translateY.setValue(newTranslateY)
+        // 计算新的高度
+        let newHeight = dragStartHeight.current - gestureState.dy
+        newHeight = Math.max(0, Math.min(SCREEN_HEIGHT, newHeight))
+        heightAnim.setValue(newHeight)
       },
 
       // 手势释放时的处理
       onPanResponderRelease: (_, gestureState) => {
-        // 计算新的弹窗高度
-        let newHeight = currentHeight - gestureState.dy
-
-        // 限制高度范围
-        if (newHeight > SCREEN_HEIGHT) newHeight = SCREEN_HEIGHT
-        if (newHeight < 0) newHeight = 0
-
-        // 找到最近的锚点高度
+        let newHeight = dragStartHeight.current - gestureState.dy
+        newHeight = Math.max(0, Math.min(SCREEN_HEIGHT, newHeight))
         const snapHeight = findNearestSnapHeight(newHeight)
-
-        // 同时执行高度和位移的动画
-        Animated.parallel([
-          // 弹窗高度动画
-          Animated.spring(heightAnim, {
-            toValue: snapHeight,
-            useNativeDriver: false,
-            damping: 50,
-            stiffness: 300,
-          }),
-          // 位移重置动画
-          Animated.spring(translateY, {
-            toValue: 0,
-            useNativeDriver: false,
-            damping: 50,
-            stiffness: 300,
-          }),
-        ]).start()
+        Animated.spring(heightAnim, {
+          toValue: snapHeight,
+          useNativeDriver: false,
+          damping: 50,
+          stiffness: 300,
+        }).start()
       },
     })
   ).current
 
   // 弹窗隐藏时不渲染
-  if (!visible) return null
+  if (!shouldRender) return null
 
   return (
     <View style={styles.container}>
@@ -165,7 +139,7 @@ export const BottomPopup = ({
           styles.bottomSheetContainer,
           {
             height: heightAnim,
-            transform: [{ translateY }],
+            transform: [{ translateY: popupTranslateY }],
           },
         ]}
         {...panResponder.panHandlers}
@@ -195,17 +169,19 @@ export const BottomPopup = ({
 
         {/* 弹窗内容区域 */}
         <View style={styles.content}>
-          {imageUrl ? (
-            <View style={styles.imageContainer}>
-              <Image
-                source={{ uri: imageUrl }}
-                style={styles.image}
-                resizeMode="contain"
-              />
-            </View>
-          ) : (
-            children
-          )}
+          <ScrollView contentContainerStyle={{ flexGrow: 1, minHeight: 0 }}>
+            {imageUrl ? (
+              <View style={styles.imageContainer}>
+                <Image
+                  source={{ uri: imageUrl }}
+                  style={styles.image}
+                  resizeMode="contain"
+                />
+              </View>
+            ) : (
+              children
+            )}
+          </ScrollView>
         </View>
       </Animated.View>
     </View>
@@ -277,7 +253,7 @@ const styles = createAdaptStyleSheet.create({
   },
   // 内容区域
   content: {
-    flex: 1,
+    minHeight: 0,
   },
   // 图片容器
   imageContainer: {
