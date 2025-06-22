@@ -2,8 +2,26 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TouchableOpacity, Animated, Image, Dimensions } from 'react-native';
 import { globalColor } from "@/style/color";
 import { createAdaptStyleSheet } from '@/utils/index';
+import Reanimated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+  runOnJS,
+  interpolate,
+  Extrapolate,
+} from 'react-native-reanimated';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const MENU_WIDTH = SCREEN_WIDTH * 0.6;
+const GESTURE_AREA_WIDTH = 30;
+
+const springConfig = {
+  damping: 20,
+  mass: 0.8,
+  stiffness: 200,
+};
 
 const styles = createAdaptStyleSheet.create({
   container: {
@@ -27,7 +45,7 @@ const styles = createAdaptStyleSheet.create({
     top: 0,
     left: 0,
     height: '100%',
-    width: '60%',
+    width: MENU_WIDTH,
     backgroundColor: 'white',
     shadowColor: "#000",
     shadowOffset: {
@@ -84,54 +102,72 @@ const styles = createAdaptStyleSheet.create({
 interface SideMenuProps {
   isVisible: boolean;
   onClose: () => void;
+  onOpen: () => void;
 }
 
-export const SideMenu: React.FC<SideMenuProps> = ({ isVisible, onClose }) => {
+export const SideMenu: React.FC<SideMenuProps> = ({ isVisible, onClose, onOpen }) => {
   const [activeItem, setActiveItem] = useState('首页');
-  const [isRendered, setIsRendered] = useState(false);
-  const slideAnim = useRef(new Animated.Value(-SCREEN_WIDTH)).current;
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const translateX = useSharedValue(-MENU_WIDTH);
+  const context = useSharedValue({ x: 0 });
 
   useEffect(() => {
     if (isVisible) {
-      setIsRendered(true);
-      Animated.parallel([
-        Animated.spring(slideAnim, {
-          toValue: 0,
-          useNativeDriver: true,
-          damping: 20,
-          mass: 0.8,
-          stiffness: 200,
-        }),
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 100,
-          useNativeDriver: true,
-        }),
-      ]).start();
+      translateX.value = withSpring(0, springConfig);
     } else {
-      Animated.parallel([
-        Animated.spring(slideAnim, {
-          toValue: -SCREEN_WIDTH,
-          useNativeDriver: true,
-          damping: 20, // 阻尼
-          mass: 0.8,
-          stiffness: 200,
-        }),
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: 100,
-          useNativeDriver: true,
-        }),
-      ]).start(({ finished }) => {
-        console.log('触发');
-        if (finished) {
-          console.log('完成');
-          setIsRendered(false);
-        }
-      });
+      translateX.value = withSpring(-MENU_WIDTH, springConfig);
     }
   }, [isVisible]);
+
+  const closeMenu = () => {
+    'worklet';
+    translateX.value = withSpring(-MENU_WIDTH, springConfig, () => {
+      runOnJS(onClose)();
+    });
+  }
+
+  const openMenu = () => {
+    'worklet';
+    translateX.value = withSpring(0, springConfig, () => {
+      runOnJS(onOpen)();
+    });
+  }
+
+  const gesture = Gesture.Pan()
+    .onBegin((event) => {
+      context.value = { x: translateX.value };
+    })
+    .onUpdate((event) => {
+      const newTranslateX = context.value.x + event.translationX;
+      translateX.value = Math.max(-MENU_WIDTH, Math.min(newTranslateX, 0));
+    })
+    .onEnd((event) => {
+      if (translateX.value < -MENU_WIDTH / 2 || event.velocityX < -500) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+  const animatedMenuSyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: translateX.value }],
+  }));
+
+  const animatedContainerStyle = useAnimatedStyle(() => {
+    const width = isVisible ? SCREEN_WIDTH : GESTURE_AREA_WIDTH;
+    return {
+      width: withTiming(width, { duration: 150 }),
+    };
+  });
+
+  const animatedOverlayStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(
+      translateX.value,
+      [-MENU_WIDTH, 0],
+      [0, 1],
+      Extrapolate.CLAMP
+    ),
+    display: translateX.value === -MENU_WIDTH ? 'none' : 'flex',
+  }));
 
   const handleMenuItemPress = (item: string) => {
     setActiveItem(item);
@@ -145,66 +181,58 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isVisible, onClose }) => {
     { id: 'about', title: '关于我们', icon: require('@/assets/images/home/location_icon.png') },
   ];
 
-  if (!isRendered) return null;
-
   return (
-    <View style={styles.container}>
-      <Animated.View 
-        style={[
-          styles.overlay,
-          {
-            opacity: fadeAnim,
-          }
-        ]}
-      >
-        <TouchableOpacity 
-          style={{ flex: 1 }} 
-          onPress={onClose}
-          activeOpacity={1}
-        />
-      </Animated.View>
-      <Animated.View
-        style={[
-          styles.menuContainer,
-          {
-            transform: [
-              {
-                translateX: slideAnim,
-              },
-            ],
-          },
-        ]}
-      >
-        <View style={styles.menuHeader}>
-          <Text style={styles.menuTitle}>云游</Text>
-          <Text style={styles.menuSubtitle}>探索更多精彩内容</Text>
-        </View>
-        {menuItems.map((item) => (
+    <GestureDetector gesture={gesture}>
+      <Reanimated.View style={[styles.container, animatedContainerStyle]}>
+        <Reanimated.View
+          style={[
+            styles.overlay,
+            animatedOverlayStyle
+          ]}
+        >
           <TouchableOpacity 
-            key={item.id}
-            style={[
-              styles.menuItem,
-              activeItem === item.title && styles.activeMenuItem
-            ]}
-            onPress={() => handleMenuItemPress(item.title)}
-            activeOpacity={0.7}
-          >
-            <Image 
-              source={item.icon} 
+            style={{ flex: 1 }} 
+            onPress={() => closeMenu()}
+            activeOpacity={1}
+          />
+        </Reanimated.View>
+        <Reanimated.View
+          style={[
+            styles.menuContainer,
+            animatedMenuSyle
+          ]}
+        >
+          <View style={styles.menuHeader}>
+            <Text style={styles.menuTitle}>云游</Text>
+            <Text style={styles.menuSubtitle}>探索更多精彩内容</Text>
+          </View>
+          {menuItems.map((item) => (
+            <TouchableOpacity 
+              key={item.id}
               style={[
-                styles.menuIcon,
-                activeItem === item.title && { tintColor: globalColor.THEME_ONE }
-              ]} 
-            />
-            <Text style={[
-              styles.menuText,
-              activeItem === item.title && styles.activeMenuText
-            ]}>
-              {item.title}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </Animated.View>
-    </View>
+                styles.menuItem,
+                activeItem === item.title && styles.activeMenuItem
+              ]}
+              onPress={() => handleMenuItemPress(item.title)}
+              activeOpacity={0.7}
+            >
+              <Image 
+                source={item.icon} 
+                style={[
+                  styles.menuIcon,
+                  activeItem === item.title && { tintColor: globalColor.THEME_ONE }
+                ]} 
+              />
+              <Text style={[
+                styles.menuText,
+                activeItem === item.title && styles.activeMenuText
+              ]}>
+                {item.title}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </Reanimated.View>
+      </Reanimated.View>
+    </GestureDetector>
   );
 }; 

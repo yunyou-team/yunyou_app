@@ -55,6 +55,10 @@ export const HeadComponent: React.FC = () => {
     setIsMenuVisible(false);
   }
 
+  const handleOpenMenu = () => {
+    setIsMenuVisible(true);
+  }
+
   return (
     <>
       <View style={styles.header}>
@@ -70,7 +74,7 @@ export const HeadComponent: React.FC = () => {
           </View>
         </TouchableOpacity>
       </View>
-      <SideMenu isVisible={isMenuVisible} onClose={handleCloseMenu} />
+      <SideMenu isVisible={isMenuVisible} onClose={handleCloseMenu} onOpen={handleOpenMenu} />
     </>
   );
 };
