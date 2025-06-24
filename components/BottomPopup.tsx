@@ -108,7 +108,7 @@ export const BottomPopup = ({
 
       // 手势移动时的处理
       onPanResponderMove: (_, gestureState) => {
-        // 计算新的高度
+        // 当前高度 - 拖动的距离（向上拖动： gestureState.dy < 0）
         let newHeight = dragStartHeight.current - gestureState.dy
         newHeight = Math.max(0, Math.min(SCREEN_HEIGHT, newHeight))
         heightAnim.setValue(newHeight)
