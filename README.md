@@ -3,7 +3,8 @@
 # 1. 启动流程
 
 ```
-yarn install
+<!-- 不要随意提交lockfile变更！！！！！！！ -->
+yarn install --frozen-lockfile
 
 yarn start
 
