@@ -4,7 +4,7 @@ import { Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { View } from 'react-native'; 
 import { storage } from '@/utils';
-import FirstLogin from './components/login/FirstLoading'
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Layout() {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,31 +30,30 @@ export default function Layout() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-          <NavigationContainer>
-            <Stack 
-              screenOptions={{ 
-                headerShown: false,
-                gestureEnabled: false,
-              }}
-            >
-              <Stack.Screen 
-                name="(tabs)" 
-                options={{ 
-                  headerShown: false,
-                  gestureEnabled: false  
-                }} 
-              />
-              <Stack.Screen 
-                name='(app)' 
-                options={{ 
-                  headerShown: false,
-                  gestureEnabled: true,
-                }} 
-              />
-            </Stack>
-          </NavigationContainer>
-       
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack 
+          screenOptions={{ 
+            headerShown: false,
+            gestureEnabled: false,
+          }}
+        >
+          <Stack.Screen 
+            name="(tabs)" 
+            options={{ 
+              headerShown: false,
+              gestureEnabled: false  
+            }} 
+          />
+          <Stack.Screen 
+            name='(app)' 
+            options={{ 
+              headerShown: false,
+              gestureEnabled: true,
+            }} 
+          />
+        </Stack>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
